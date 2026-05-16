@@ -1386,8 +1386,15 @@ function audPlay(idx) {
   const url  = song?.url || null;
   if (!url) { audFade(audioEl.volume * 100, 0, () => audioEl.pause()); return; }
   const load = () => {
+    const chorSec = STOP_DATA[idx]?.chorus_sec || 0;
     audioEl.src = url;
     audioEl.volume = 0;
+    if (chorSec > 0) {
+      audioEl.addEventListener('loadedmetadata', function seekOnce() {
+        audioEl.currentTime = chorSec;
+        audioEl.removeEventListener('loadedmetadata', seekOnce);
+      });
+    }
     audioEl.play().catch(() => {});
     audFade(0, 72);
   };
@@ -1397,7 +1404,10 @@ function audPlay(idx) {
 
 // Loop track when it ends
 audioEl.addEventListener('ended', () => {
-  if (!audPaused && audIdx >= 0) { audioEl.currentTime = 0; audioEl.play().catch(() => {}); }
+  if (!audPaused && audIdx >= 0) {
+    audioEl.currentTime = STOP_DATA[audIdx]?.chorus_sec || 0;
+    audioEl.play().catch(() => {});
+  }
 });
 
 // First ▶ click — audio.play() inside click handler = always works
