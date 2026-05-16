@@ -189,6 +189,17 @@ img{background:var(--bg3)}
 .np-artist{font-size:10px;color:var(--gold);opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .np-btn{background:none;border:1px solid rgba(212,201,188,.12);border-radius:6px;color:var(--muted);font-size:12px;padding:4px 8px;cursor:pointer;flex-shrink:0;line-height:1;transition:color .15s,border-color .15s}
 .np-btn:hover{color:var(--white);border-color:rgba(212,201,188,.3)}
+/* Mute warning icon */
+#mute-warn{font-size:15px;opacity:0;pointer-events:none;transition:opacity .4s;flex-shrink:0;display:inline-block}
+#mute-warn.on{opacity:1;animation:muteGlow 1.4s ease-in-out infinite}
+@keyframes muteGlow{
+  0%,100%{transform:scale(1);filter:drop-shadow(0 0 0px rgba(194,87,43,0))}
+  50%{transform:scale(1.4);filter:drop-shadow(0 0 10px rgba(194,87,43,.9))}
+}
+/* Tap-to-start banner */
+#tap-banner{position:fixed;bottom:88px;right:28px;z-index:199;background:rgba(12,9,6,.9);border:1px solid rgba(194,87,43,.45);border-radius:10px;padding:10px 18px;font-size:12px;color:var(--cream);letter-spacing:.04em;cursor:pointer;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s;pointer-events:none;white-space:nowrap;user-select:none}
+#tap-banner.on{opacity:1;transform:translateY(0);pointer-events:auto}
+#tap-banner span{color:var(--rust);margin-right:6px}
 /* #yt-player-el is now a native iframe with inline style — no CSS rule needed */
 
 /* ── ROUTE OVERVIEW MAP ─────────────────── */
@@ -228,12 +239,14 @@ img{background:var(--bg3)}
 <!-- Native audio element — no YouTube, no API, just an MP3 URL -->
 <audio id="audio-player" preload="none" style="display:none"></audio>
 <!-- Now Playing — visible from start; user clicks ▶ to unlock audio -->
+<div id="tap-banner"><span>♪</span>tap anywhere to start the soundtrack</div>
 <div id="now-playing">
   <span class="np-icon">♪</span>
   <div class="np-info">
     <span class="np-title" id="np-title">Scroll soundtrack</span>
     <span class="np-artist" id="np-artist">click ▶ to start</span>
   </div>
+  <span id="mute-warn" title="Your computer appears to be muted">🔇</span>
   <button class="np-btn" id="np-btn">▶</button>
 </div>
 
@@ -1410,9 +1423,70 @@ audioEl.addEventListener('ended', () => {
   }
 });
 
+// ── Mute detection via AudioContext AnalyserNode ─────────────────────────
+let audioCtx = null, analyser = null, muteCheckTimer = null;
+const muteWarnEl = document.getElementById('mute-warn');
+
+function setupAudioContext() {
+  if (audioCtx) return;
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const src = audioCtx.createMediaElementSource(audioEl);
+    analyser  = audioCtx.createAnalyser();
+    analyser.fftSize = 256;
+    src.connect(analyser);
+    analyser.connect(audioCtx.destination);
+  } catch(e) { console.warn('AudioContext setup failed', e); }
+}
+
+function checkMute() {
+  if (!analyser || audioEl.paused) { muteWarnEl.classList.remove('on'); return; }
+  const data = new Uint8Array(analyser.frequencyBinCount);
+  analyser.getByteTimeDomainData(data);
+  // All values at 128 = DC bias = silence = system muted
+  const isMuted = data.every(v => v === 128);
+  muteWarnEl.classList.toggle('on', isMuted);
+}
+
+function startMuteCheck() {
+  setupAudioContext();
+  if (audioCtx) audioCtx.resume().catch(() => {});
+  if (muteCheckTimer) clearInterval(muteCheckTimer);
+  muteCheckTimer = setInterval(checkMute, 900);
+}
+
+// ── Tap-to-start banner ───────────────────────────────────────────────────
+const tapBannerEl = document.getElementById('tap-banner');
+let tapBannerShown = false;
+
+function showTapBanner() {
+  if (tapBannerShown || audUnlocked) return;
+  tapBannerShown = true;
+  tapBannerEl.classList.add('on');
+}
+function hideTapBanner() {
+  tapBannerEl.classList.remove('on');
+}
+
+tapBannerEl.addEventListener('click', () => {
+  hideTapBanner();
+  audFirstPlay();
+});
+
+// Any click anywhere while banner is visible also unlocks
+document.addEventListener('click', e => {
+  if (tapBannerShown && !audUnlocked && e.target !== tapBannerEl) {
+    hideTapBanner();
+    audFirstPlay();
+  }
+});
+
 // First ▶ click — audio.play() inside click handler = always works
 function audFirstPlay() {
+  if (audUnlocked) return;
   audUnlocked = true;
+  hideTapBanner();
+  startMuteCheck();
   let idx = audIdx >= 0 ? audIdx : 0;
   if (!SONGS[idx]) idx = SONGS.findIndex(s => s);
   audIdx = -1;
@@ -1573,6 +1647,7 @@ function findActiveStopIdx() {
 
 let rafPending = false;
 window.addEventListener('scroll', () => {
+  if (!audUnlocked) showTapBanner();
   if (!audPaused) {
     const idxNow = findActiveStopIdx();
     if (idxNow >= 0) audPlay(idxNow); // no-op until audUnlocked
@@ -1634,11 +1709,13 @@ window.addEventListener('DOMContentLoaded', () => {
       audPaused = true;
       audFade(audioEl.volume * 100, 0, () => audioEl.pause());
       btn.textContent = '▶';
+      muteWarnEl.classList.remove('on');
     } else {
       audPaused = false;
       audioEl.play().catch(() => {});
       audFade(0, 72);
       btn.textContent = '⏸';
+      startMuteCheck();
     }
   });
 
