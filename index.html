@@ -35,10 +35,21 @@ a{color:var(--rust);text-decoration:none}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,9,6,.98) 0%,rgba(12,9,6,.72) 40%,rgba(12,9,6,.35) 65%,rgba(12,9,6,.1) 85%,transparent 100%)}
 .hero-content{position:relative;padding:0 64px 80px;max-width:900px}
 .hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgba(212,201,188,.92);margin-bottom:20px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
-.hero h1{font-size:clamp(56px,9vw,108px);line-height:.93;letter-spacing:-.03em;color:var(--white);margin-bottom:28px}
-.hero h1 em{font-style:italic;color:var(--gold)}
-.hero-made-with{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,201,188,.65);margin-top:-18px;margin-bottom:32px;text-shadow:0 1px 6px rgba(0,0,0,.8)}.hero-made-with a{color:rgba(212,201,188,.65);text-decoration:none;border-bottom:1px solid rgba(212,201,188,.3)}.hero-made-with a:hover{color:rgba(212,201,188,.95)}
-.hero h1 .hero-soundtrack{display:block;font-style:italic;color:rgba(212,201,188,.55);letter-spacing:-.03em;font-weight:300;text-shadow:0 1px 10px rgba(0,0,0,.9)}
+.hero h1{font-size:clamp(38px,6.5vw,84px);line-height:.96;letter-spacing:.08em;text-transform:uppercase;color:var(--white);margin-bottom:20px}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,28px);font-style:italic;font-weight:300;color:rgba(212,201,188,.72);margin-bottom:10px;text-shadow:0 1px 8px rgba(0,0,0,.8);letter-spacing:.01em}
+.hero-sub em{color:var(--gold);font-style:italic}
+.hero-made-with{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,201,188,.45);margin-bottom:32px;text-shadow:0 1px 6px rgba(0,0,0,.8)}.hero-made-with a{color:rgba(212,201,188,.45);text-decoration:none;border-bottom:1px solid rgba(212,201,188,.2)}.hero-made-with a:hover{color:rgba(212,201,188,.85)}
+/* ── MUSIC INTRO ─────────────────────────────────── */
+.music-intro{min-height:100vh;display:flex;align-items:center;background:var(--bg2);border-top:1px solid var(--line)}
+.music-intro-inner{padding:100px 72px;max-width:720px}
+.music-intro-h{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,92px);font-weight:300;line-height:.95;letter-spacing:-.02em;color:var(--white);margin:16px 0 32px}
+.music-intro-h em{font-style:italic;color:var(--gold)}
+.music-intro-body{font-size:16px;line-height:1.85;color:var(--cream);opacity:.75;max-width:540px;margin-bottom:16px}
+.music-play-btn{display:inline-flex;align-items:center;gap:18px;background:none;border:1.5px solid rgba(194,87,43,.65);color:var(--cream);padding:18px 36px;border-radius:100px;cursor:pointer;transition:background .25s,border-color .25s,color .25s;margin-top:40px;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase}
+.music-play-btn:hover{background:var(--rust);border-color:var(--rust);color:#fff}
+.music-play-icon{font-size:22px;color:var(--rust);transition:color .25s;line-height:1}
+.music-play-btn:hover .music-play-icon{color:#fff}
+.music-play-hint{font-size:11px;color:var(--muted);margin-top:16px;letter-spacing:.05em;opacity:.7}
 .hero-desc{font-size:16px;max-width:520px;opacity:.95;line-height:1.7;margin-bottom:40px;text-shadow:0 1px 10px rgba(0,0,0,.7)}
 .hero-tags{display:flex;gap:10px;flex-wrap:wrap}
 .hero-tag{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:7px 16px;border:1px solid rgba(212,201,188,.55);border-radius:100px;color:rgba(212,201,188,.92);background:rgba(12,9,6,.35);backdrop-filter:blur(4px);text-shadow:0 1px 4px rgba(0,0,0,.6)}
@@ -248,7 +259,8 @@ img{background:var(--bg3)}
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">New York City → California &nbsp;·&nbsp; 42 Days &nbsp;·&nbsp; ~7,400 km</div>
-    <h1>Best Road Trip<br><em>by Assa &nbsp;·&nbsp; soundtrack included</em></h1>
+    <h1>Coast to Coast<br>Along the South</h1>
+    <p class="hero-sub">an itinerary with music <em>by Assa</em></p>
     <p class="hero-made-with">made with <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer">Claude Code</a></p>
     <p class="hero-desc">A road trip with no flights. A van that's your home. A dog in the passenger seat. Watch a Starship launch from a beach in South Texas.</p>
     <div class="hero-tags">
@@ -298,7 +310,22 @@ img{background:var(--bg3)}
     </div>
     <h2 class="route-map-title">NYC → <em>California</em></h2>
     <p class="route-map-desc">~7,200 km. Eleven stops. One road south through the music and the heat, then west into the desert and the light.</p>
-    <button class="btn-begin" onclick="audFirstPlay(); setTimeout(()=>document.getElementById('journey').scrollIntoView({behavior:'smooth'}),80)">Begin the Journey ↓</button>
+    <button class="btn-begin" onclick="setTimeout(()=>document.getElementById('music-intro').scrollIntoView({behavior:'smooth'}),80)">Begin the Journey ↓</button>
+  </div>
+</div>
+
+<!-- ══ MUSIC INTRO ════════════════════════════════════════════════════════ -->
+<div class="music-intro" id="music-intro">
+  <div class="music-intro-inner fade">
+    <span class="label">The Soundtrack</span>
+    <h2 class="music-intro-h">Every stop<br>has <em>a song.</em></h2>
+    <p class="music-intro-body">Like a sommelier pairing wine with food — every city on this route comes with a track chosen for the landscape, the light, and the mood. Chelsea Hotel No. 2 plays as you leave Manhattan. Johnny Cash takes over somewhere in Tennessee. Gram Parsons climbs the Rockies with you.</p>
+    <p class="music-intro-body" style="font-size:14px;opacity:.5;margin-bottom:0">Turn your volume up. Songs change automatically as you scroll from city to city.</p>
+    <button class="music-play-btn" onclick="audFirstPlay()">
+      <span class="music-play-icon">▶</span>
+      Start — Chelsea Hotel No. 2 &nbsp;·&nbsp; Leonard Cohen
+    </button>
+    <p class="music-play-hint">Then scroll down. The music follows you.</p>
   </div>
 </div>
 
@@ -1450,14 +1477,11 @@ audEls.forEach(el => {
 function audFirstPlay() {
   if (audUnlocked) return;
   audUnlocked = true;
-  // Unlock both audio elements in this gesture context so scroll-triggered
-  // play() calls work later without requiring another gesture
-  audEls.forEach(el => { el.volume = 0; el.play().then(() => el.pause()).catch(() => {}); });
+  audIdx = -1;
+  audPlay(0); // Chelsea Hotel — always the opener
 }
 
-function tryAutoplay() {
-  // Nothing — audio unlocks via Begin Journey button or ▶ click
-}
+function tryAutoplay() {}
 
 function ytUpdateWidget(idx) {
   const npEl  = document.getElementById('now-playing');
@@ -1731,7 +1755,8 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('np-btn')?.addEventListener('click', () => {
     const btn = document.getElementById('np-btn');
     if (!audUnlocked) {
-      audFirstPlay(); // unlock silently — scroll will start the right song
+      audFirstPlay();
+      btn.textContent = '⏸';
       return;
     }
     if (!audPaused) {
