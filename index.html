@@ -37,7 +37,8 @@ a{color:var(--rust);text-decoration:none}
 .hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgba(212,201,188,.92);margin-bottom:20px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
 .hero h1{font-size:clamp(56px,9vw,108px);line-height:.93;letter-spacing:-.03em;color:var(--white);margin-bottom:28px}
 .hero h1 em{font-style:italic;color:var(--gold)}
-.hero-made-with{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,201,188,.38);margin-top:-18px;margin-bottom:32px}.hero-made-with a{color:rgba(212,201,188,.38);text-decoration:none;border-bottom:1px solid rgba(212,201,188,.18)}.hero-made-with a:hover{color:rgba(212,201,188,.65)}
+.hero-made-with{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,201,188,.65);margin-top:-18px;margin-bottom:32px;text-shadow:0 1px 6px rgba(0,0,0,.8)}.hero-made-with a{color:rgba(212,201,188,.65);text-decoration:none;border-bottom:1px solid rgba(212,201,188,.3)}.hero-made-with a:hover{color:rgba(212,201,188,.95)}
+.hero h1 .hero-soundtrack{display:block;font-size:clamp(14px,1.8vw,20px);font-style:normal;color:rgba(212,201,188,.72);letter-spacing:.06em;font-weight:300;margin-top:10px;text-shadow:0 1px 8px rgba(0,0,0,.9)}
 .hero-desc{font-size:16px;max-width:520px;opacity:.95;line-height:1.7;margin-bottom:40px;text-shadow:0 1px 10px rgba(0,0,0,.7)}
 .hero-tags{display:flex;gap:10px;flex-wrap:wrap}
 .hero-tag{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:7px 16px;border:1px solid rgba(212,201,188,.55);border-radius:100px;color:rgba(212,201,188,.92);background:rgba(12,9,6,.35);backdrop-filter:blur(4px);text-shadow:0 1px 4px rgba(0,0,0,.6)}
@@ -245,8 +246,8 @@ img{background:var(--bg3)}
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">New York City → California &nbsp;·&nbsp; 42 Days &nbsp;·&nbsp; ~7,400 km</div>
-    <h1>Best Road Trip<br><em>by Assa</em></h1>
-    <p class="hero-made-with">made with <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer">Claude Code</a> &nbsp;·&nbsp; soundtrack included</p>
+    <h1>Best Road Trip<br><em>by Assa</em><span class="hero-soundtrack">· soundtrack included</span></h1>
+    <p class="hero-made-with">made with <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer">Claude Code</a></p>
     <p class="hero-desc">A road trip with no flights. A van that's your home. A dog in the passenger seat. Watch a Starship launch from a beach in South Texas.</p>
     <div class="hero-tags">
       <span class="hero-tag">Graceland</span>
@@ -545,7 +546,7 @@ img{background:var(--bg3)}
         </a>
         <div class="stop-photos-3">
           <img src="https://images.unsplash.com/photo-1609695001327-4beabb6a2bca?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=500&q=82'" alt="Graceland mansion">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Rainy_Beale_St.jpg" onerror="this.src='https://images.unsplash.com/photo-1609695001327-4beabb6a2bca?w=500&q=82'" alt="Beale Street Memphis">
+          <img src="https://images.unsplash.com/photo-1609695001327-4beabb6a2bca?w=500&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1609695001327-4beabb6a2bca?w=500&q=82'" alt="Beale Street Memphis">
           <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1564442038901-4f9a19d3d456?w=500&q=82'" alt="Blues guitar player">
         </div>
         <div class="days">
@@ -598,7 +599,7 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Down There by the Train</span><span class="song-artist-text">Tom Waits — Johnny Cash also covered this beautifully</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Bourbon_Street%2C_New_Orleans_at_night.JPG/1280px-Bourbon_Street%2C_New_Orleans_at_night.JPG" onerror="this.src='https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=800&q=82'" alt="New Orleans Bourbon Street at night">
+          <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1568347877321-f8935f7c59be?w=800&q=82'" alt="New Orleans Bourbon Street at night">
           <img src="https://images.unsplash.com/photo-1568347877321-f8935f7c59be?w=800&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=400&q=82'" alt="New Orleans balconies">
         </div>
         <div class="days">
@@ -712,8 +713,8 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Rocket Man</span><span class="song-artist-text">Elton John — 1972</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/SpaceX_Starship_ignition_during_IFT-5.jpg" onerror="this.src='https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800&q=82'" alt="SpaceX Starship ignition — IFT-5">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/South_Padre_Island_beach.jpg" onerror="this.src='https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=400&q=82'" alt="South Padre Island beach">
+          <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1541873676-a18131494184?w=800&q=82'" alt="SpaceX Starship rocket launch">
+          <img src="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=500&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=82'" alt="South Padre Island beach">
         </div>
         <div class="days">
           <div class="day">
@@ -1104,9 +1105,9 @@ img{background:var(--bg3)}
     <blockquote class="dog-quote">"2am somewhere in the Texas desert. The engine is off. Stars everywhere. You open the side door and your golden sticks his head out, sniffs the night air, and looks back at you. This is it."</blockquote>
     <p style="max-width:620px;opacity:.65">Adult golden retrievers are calm, adaptable road dogs: new smells every morning, long quiet stretches of highway, sleeping somewhere different every night. They adjust fast. They ask for very little.</p>
     <div class="dog-photo-grid fade">
-      <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=700&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1552053831-71594a27632d?w=700&q=85'" alt="Golden Retriever landscape">
-      <img src="https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48?w=500&q=85&fit=crop&crop=faces" onerror="this.src='https://images.unsplash.com/photo-1552053831-71594a27632d?w=500&q=85'" alt="Golden Retriever puppy">
-      <img src="https://images.unsplash.com/photo-1530467397793-96c0c7d49fb1?w=500&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=500&q=85'" alt="Dog out car window">
+      <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=700&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1552053831-71594a27632d?w=700&q=85'" alt="Golden Retriever running in field">
+      <img src="https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48?w=500&q=85&fit=crop&crop=faces" onerror="this.src='https://images.unsplash.com/photo-1552053831-71594a27632d?w=500&q=85'" alt="Golden Retriever puppy face">
+      <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=500&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=500&q=85'" alt="Golden Retriever running outdoors">
     </div>
     <hr class="rule">
     <span class="label" style="margin-top:8px">How to Do It</span>
@@ -1231,42 +1232,67 @@ function loadImg(el, urls) {
 // ── MapLibre route data ───────────────────────────────────────────────────
 // yt_id = YouTube video ID to play at this stop · chorus_sec = start at chorus
 const STOP_DATA = [
-  { day:'Days 1–3',   name:'New York City',                  coords:[-74.006, 40.713], zoom:11, pitch:0,  bearing:0,   yt_id:null,          chorus_sec:0  },
-  { day:'Days 4–6',   name:'West Virginia & Shenandoah',     coords:[-79.500, 38.500], zoom:9,  pitch:40, bearing:-10, yt_id:'1vrEljMfXYo', chorus_sec:30 },
-  { day:'Days 7–9',   name:'Kentucky',                       coords:[-85.760, 37.200], zoom:9,  pitch:30, bearing:0,   yt_id:'m-XnzAlAess', chorus_sec:12 },
-  { day:'Days 10–12',  name:'Nashville, Tennessee',           coords:[-86.782, 36.163], zoom:12, pitch:0,  bearing:0,   yt_id:'NGyUDzU4IIs', chorus_sec:22 },
-  { day:'Days 13–15', name:'Memphis & Graceland',            coords:[-90.049, 35.150], zoom:12, pitch:0,  bearing:0,   yt_id:'GP6a-7MP91g', chorus_sec:62 },
-  { day:'Days 16–20', name:'New Orleans, Louisiana',         coords:[-90.071, 29.951], zoom:13, pitch:0,  bearing:12,  yt_id:'DTT8O_LslzQ', chorus_sec:78 },
-  { day:'Days 21–22', name:'Houston, Texas',                 coords:[-95.370, 29.760], zoom:11, pitch:0,  bearing:0,   yt_id:null,          chorus_sec:0  },
-  { day:'Days 23–25', name:'SpaceX Starbase, South Texas',   coords:[-97.155, 25.997], zoom:11, pitch:0,  bearing:0,   yt_id:'iYYRH4apXDo', chorus_sec:65 },
-  { day:'Days 26–29', name:'Big Bend National Park',         coords:[-103.178,29.250], zoom:9,  pitch:50, bearing:0,   yt_id:'bX94bmYL9Ks', chorus_sec:52 },
-  { day:'Days 30–33', name:'Raton Pass & Colorado Rockies',  coords:[-105.521,40.343], zoom:9,  pitch:55, bearing:-12, yt_id:'TaEGmp9Qgxg', chorus_sec:69 },
-  { day:'Days 34–39', name:'Monument Valley & Grand Canyon', coords:[-111.000,36.500], zoom:8,  pitch:40, bearing:8,   yt_id:'mNj6spCtUE0', chorus_sec:20 },
-  { day:'Days 40–42', name:'Las Vegas & California',         coords:[-115.140,36.170], zoom:10, pitch:0,  bearing:0,   yt_id:'9MO1KyNUOIs', chorus_sec:22 },
+  { day:'Days 1–3',   name:'New York City',                  coords:[-74.006, 40.713], routeIdx:0,  zoom:11, pitch:0,  bearing:0,   yt_id:null,          chorus_sec:0  },
+  { day:'Days 4–6',   name:'West Virginia & Shenandoah',     coords:[-79.500, 38.500], routeIdx:3,  zoom:9,  pitch:40, bearing:-10, yt_id:'1vrEljMfXYo', chorus_sec:30 },
+  { day:'Days 7–9',   name:'Kentucky',                       coords:[-86.100, 37.190], routeIdx:6,  zoom:9,  pitch:30, bearing:0,   yt_id:'m-XnzAlAess', chorus_sec:12 },
+  { day:'Days 10–12', name:'Nashville, Tennessee',           coords:[-86.782, 36.163], routeIdx:8,  zoom:12, pitch:0,  bearing:0,   yt_id:'NGyUDzU4IIs', chorus_sec:22 },
+  { day:'Days 13–15', name:'Memphis & Graceland',            coords:[-90.049, 35.150], routeIdx:10, zoom:12, pitch:0,  bearing:0,   yt_id:'GP6a-7MP91g', chorus_sec:62 },
+  { day:'Days 16–20', name:'New Orleans, Louisiana',         coords:[-90.071, 29.951], routeIdx:12, zoom:13, pitch:0,  bearing:12,  yt_id:'DTT8O_LslzQ', chorus_sec:78 },
+  { day:'Days 21–22', name:'Houston, Texas',                 coords:[-95.370, 29.760], routeIdx:15, zoom:11, pitch:0,  bearing:0,   yt_id:null,          chorus_sec:0  },
+  { day:'Days 23–25', name:'SpaceX Starbase, South Texas',   coords:[-97.155, 25.997], routeIdx:17, zoom:11, pitch:0,  bearing:0,   yt_id:'iYYRH4apXDo', chorus_sec:65 },
+  { day:'Days 26–29', name:'Big Bend National Park',         coords:[-103.178,29.250], routeIdx:20, zoom:9,  pitch:50, bearing:0,   yt_id:'bX94bmYL9Ks', chorus_sec:52 },
+  { day:'Days 30–33', name:'Raton Pass & Colorado Rockies',  coords:[-105.521,40.343], routeIdx:27, zoom:9,  pitch:55, bearing:-12, yt_id:'TaEGmp9Qgxg', chorus_sec:69 },
+  { day:'Days 34–39', name:'Monument Valley & Grand Canyon', coords:[-111.000,36.500], routeIdx:31, zoom:8,  pitch:40, bearing:8,   yt_id:'mNj6spCtUE0', chorus_sec:20 },
+  { day:'Days 40–42', name:'Las Vegas & California',         coords:[-115.140,36.170], routeIdx:36, zoom:10, pitch:0,  bearing:0,   yt_id:'9MO1KyNUOIs', chorus_sec:22 },
 ];
 
-// Route goes south through Texas to SpaceX Starbase, then west to Big Bend, north via Raton Pass
+// routeIdx 0=NYC 3=WV 6=KY 8=Nashville 10=Memphis 12=NOLA 15=Houston 17=SpaceX 20=BigBend 27=Raton 31=MonumentValley 36=LasVegas
 const ROUTE_COORDS = [
-  [-74.006,40.713],[-75.165,39.952],[-77.040,38.907],[-79.958,38.350],
-  [-81.000,36.800],[-83.508,35.611],[-84.500,35.660],[-86.782,36.163],
-  [-88.500,35.600],[-90.049,35.150],[-90.200,33.500],[-90.071,29.951],
-  [-91.200,30.000],[-93.700,30.200],[-95.370,29.760],
-  [-97.200,27.800],  // Corpus Christi
-  [-97.155,25.997],  // SpaceX Starbase / Boca Chica
-  [-99.000,26.900],  // Rio Grande City (west)
-  [-100.500,28.500], // Del Rio
-  [-103.178,29.250], // Big Bend
-  [-104.300,30.900],[-105.800,31.800],[-106.200,32.300],
-  [-105.937,35.687], // Albuquerque area
-  [-104.680,37.050], // Raton Pass ← the hinge
-  [-104.821,38.834],[-105.521,40.343],
-  [-107.000,38.500],[-109.050,37.100],[-110.112,36.998],[-111.400,36.100],
-  [-112.140,36.054],[-112.200,34.850],[-114.065,35.198],[-115.140,36.170],
-  [-116.400,35.500],[-117.800,34.050],[-118.244,34.052],
+  [-74.006, 40.713], // 0  NYC
+  [-75.165, 39.952], // 1  Philadelphia
+  [-77.040, 38.907], // 2  DC
+  [-79.500, 38.500], // 3  WV / Shenandoah
+  [-81.500, 38.100], // 4
+  [-83.800, 37.600], // 5
+  [-86.100, 37.190], // 6  Kentucky / Mammoth Cave
+  [-86.400, 36.700], // 7  Bowling Green
+  [-86.782, 36.163], // 8  Nashville
+  [-88.500, 35.600], // 9
+  [-90.049, 35.150], // 10 Memphis
+  [-90.200, 33.500], // 11
+  [-90.071, 29.951], // 12 New Orleans
+  [-91.200, 30.000], // 13
+  [-93.700, 30.200], // 14
+  [-95.370, 29.760], // 15 Houston
+  [-97.200, 27.800], // 16 Corpus Christi
+  [-97.155, 25.997], // 17 SpaceX Starbase / Boca Chica
+  [-99.000, 26.900], // 18 Rio Grande City
+  [-100.500,28.500], // 19 Del Rio
+  [-103.178,29.250], // 20 Big Bend
+  [-104.300,30.900], // 21
+  [-105.800,31.800], // 22
+  [-106.200,32.300], // 23
+  [-105.937,35.687], // 24 Albuquerque
+  [-104.680,37.050], // 25
+  [-104.821,38.834], // 26
+  [-105.521,40.343], // 27 Raton Pass
+  [-107.000,38.500], // 28
+  [-109.050,37.100], // 29
+  [-110.112,36.998], // 30
+  [-111.000,36.500], // 31 Monument Valley
+  [-111.400,36.100], // 32
+  [-112.140,36.054], // 33
+  [-112.200,34.850], // 34
+  [-114.065,35.198], // 35
+  [-115.140,36.170], // 36 Las Vegas
+  [-116.400,35.500], // 37
+  [-117.800,34.050], // 38
+  [-118.244,34.052], // 39 Los Angeles
 ];
 
 let map, mapReady = false, currentStopIdx = -1;
 let map2, map2Ready = false;
+let travelerRouteIdx = 0, travelerAnimFrame = null;
 const markerEls = [];
 const dayEl  = document.getElementById('map-day');
 const nameEl = document.getElementById('map-name');
@@ -1557,6 +1583,18 @@ function initMap() {
         .setLngLat(s.coords).addTo(map);
     });
 
+    // Traveler dot — animates strictly along the route path
+    map.addSource('traveler', {
+      type: 'geojson',
+      data: { type:'Feature', geometry:{ type:'Point', coordinates: ROUTE_COORDS[0] } }
+    });
+    map.addLayer({ id:'traveler-glow', type:'circle', source:'traveler',
+      paint:{ 'circle-radius':18, 'circle-color':'#C2572B', 'circle-opacity':0.22, 'circle-blur':0.6 }
+    });
+    map.addLayer({ id:'traveler-dot', type:'circle', source:'traveler',
+      paint:{ 'circle-radius':8, 'circle-color':'#C2572B', 'circle-stroke-width':2.5, 'circle-stroke-color':'#EDE5DA', 'circle-opacity':1 }
+    });
+
     mapReady = true;
 
     // Show full route overview — camera eases in to fit the whole path
@@ -1568,29 +1606,84 @@ function initMap() {
   });
 }
 
+function setTravelerCoord(coord) {
+  if (!mapReady) return;
+  map.getSource('traveler').setData({ type:'Feature', geometry:{ type:'Point', coordinates: coord } });
+}
+
 function flyToStop(idx) {
-  if (!mapReady || idx === currentStopIdx || idx < 0) return;
+  if (!mapReady || idx < 0 || idx === currentStopIdx) return;
   currentStopIdx = idx;
   const s = STOP_DATA[idx];
 
-  // Highlight active marker
   markerEls.forEach((el, i) => el.classList.toggle('active', i === idx));
-
-  // Update overlay bar
   dayEl.textContent  = s.day;
   nameEl.textContent = s.name;
-  // Update "Open in Maps" link to current stop
   linkEl.href = `https://maps.google.com/maps?q=${encodeURIComponent(s.name)}`;
 
-  // Smooth camera flight
-  map.flyTo({
-    center: s.coords,
-    zoom: s.zoom,
-    pitch: s.pitch || 0,
-    bearing: s.bearing || 0,
-    duration: 1900,
-    essential: true,
-  });
+  if (travelerAnimFrame) { cancelAnimationFrame(travelerAnimFrame); travelerAnimFrame = null; }
+
+  const fromIdx = travelerRouteIdx;
+  const toIdx   = s.routeIdx;
+
+  if (fromIdx === toIdx) {
+    map.flyTo({ center: s.coords, zoom: s.zoom, pitch: s.pitch || 0, bearing: s.bearing || 0, duration: 1200, essential: true });
+    return;
+  }
+
+  // Collect route points along the path
+  const dir = toIdx > fromIdx ? 1 : -1;
+  const pts = [];
+  for (let i = fromIdx; dir > 0 ? i <= toIdx : i >= toIdx; i += dir) pts.push(ROUTE_COORDS[i]);
+
+  // Segment lengths for uniform-speed interpolation
+  let totalLen = 0;
+  const segLens = [];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const dx = pts[i+1][0] - pts[i][0], dy = pts[i+1][1] - pts[i][1];
+    const l = Math.sqrt(dx*dx + dy*dy);
+    segLens.push(l); totalLen += l;
+  }
+
+  // Fit camera to show the full traversal segment
+  const lngs = pts.map(p => p[0]), lats = pts.map(p => p[1]);
+  map.fitBounds(
+    [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
+    { padding: 90, pitch: 0, bearing: 0, duration: 500, essential: true }
+  );
+
+  const ANIM_DUR = 1800;
+  const t0 = performance.now();
+
+  function tick(now) {
+    const raw = Math.min(1, (now - t0) / ANIM_DUR);
+    const ease = raw < 0.5 ? 2*raw*raw : -1 + (4 - 2*raw)*raw;
+    const dist = ease * totalLen;
+
+    let accum = 0, coord = pts[pts.length - 1];
+    for (let i = 0; i < segLens.length; i++) {
+      if (accum + segLens[i] >= dist) {
+        const st = (dist - accum) / segLens[i];
+        coord = [pts[i][0] + (pts[i+1][0] - pts[i][0]) * st, pts[i][1] + (pts[i+1][1] - pts[i][1]) * st];
+        break;
+      }
+      accum += segLens[i];
+    }
+    setTravelerCoord(coord);
+
+    if (raw < 1) {
+      travelerAnimFrame = requestAnimationFrame(tick);
+    } else {
+      travelerRouteIdx = toIdx;
+      setTravelerCoord(s.coords);
+      travelerAnimFrame = null;
+      setTimeout(() => {
+        map.flyTo({ center: s.coords, zoom: s.zoom, pitch: s.pitch || 0, bearing: s.bearing || 0, duration: 1500, essential: true });
+      }, 100);
+    }
+  }
+
+  travelerAnimFrame = requestAnimationFrame(tick);
 }
 
 // ── Scroll-based map sync ──────────────────────────────────────────────────
