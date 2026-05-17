@@ -33,9 +33,9 @@ a{color:var(--rust);text-decoration:none}
 .hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1800&q=90&fit=crop') center/cover no-repeat}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,9,6,.98) 0%,rgba(12,9,6,.72) 40%,rgba(12,9,6,.35) 65%,rgba(12,9,6,.1) 85%,transparent 100%)}
-.hero-content{position:relative;padding:0 64px 80px;max-width:900px}
+.hero-content{position:relative;padding:0 60px 60px max(60px,9vw);max-width:740px}
 .hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgba(212,201,188,.92);margin-bottom:20px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
-.hero h1{font-size:clamp(38px,6.5vw,84px);line-height:.96;letter-spacing:.08em;text-transform:uppercase;color:var(--white);margin-bottom:20px}
+.hero h1{font-size:clamp(34px,5.2vw,70px);line-height:.96;letter-spacing:.08em;text-transform:uppercase;color:var(--white);margin-bottom:20px}
 .hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,40px);font-style:italic;font-weight:300;color:rgba(212,201,188,.88);margin-bottom:12px;text-shadow:0 1px 10px rgba(0,0,0,.9);letter-spacing:.01em}
 .hero-sub em{color:var(--gold);font-style:italic}
 .hero-made-with{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,201,188,.6);margin-bottom:32px;text-shadow:0 1px 6px rgba(0,0,0,.8)}.hero-made-with a{color:rgba(212,201,188,.6);text-decoration:none;border-bottom:1px solid rgba(212,201,188,.25)}.hero-made-with a:hover{color:rgba(212,201,188,.95)}
@@ -1626,7 +1626,19 @@ function flyToStop(idx) {
 
   if (travelerAnimFrame) { cancelAnimationFrame(travelerAnimFrame); travelerAnimFrame = null; }
 
-  const fromRouteIdx = travelerRouteIdx;
+  // Find the route index nearest to where the dot actually IS visually right now.
+  // Using travelerRouteIdx (the claimed destination) causes jumps on rapid scroll
+  // because the dot is mid-animation but we'd build the path from the destination.
+  let fromRouteIdx = 0;
+  {
+    let bestDist = Infinity;
+    for (let i = 0; i < ROUTE_COORDS.length; i++) {
+      const dx = ROUTE_COORDS[i][0] - travelerCurrentCoord[0];
+      const dy = ROUTE_COORDS[i][1] - travelerCurrentCoord[1];
+      const d = dx*dx + dy*dy;
+      if (d < bestDist) { bestDist = d; fromRouteIdx = i; }
+    }
+  }
   const toIdx = s.routeIdx;
   travelerRouteIdx = toIdx; // claim destination immediately so rapid calls chain correctly
 
