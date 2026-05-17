@@ -190,13 +190,6 @@ img{background:var(--bg3)}
 .np-artist{font-size:10px;color:var(--gold);opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .np-btn{background:none;border:1px solid rgba(212,201,188,.12);border-radius:6px;color:var(--muted);font-size:12px;padding:4px 8px;cursor:pointer;flex-shrink:0;line-height:1;transition:color .15s,border-color .15s}
 .np-btn:hover{color:var(--white);border-color:rgba(212,201,188,.3)}
-/* Mute warning — styled identically to .np-btn, hidden until muted */
-#mute-warn{display:none;background:none;border:1px solid rgba(194,87,43,.35);border-radius:6px;color:var(--rust);font-size:11px;padding:4px 8px;flex-shrink:0;line-height:1;pointer-events:none;animation:muteGlow 1.6s ease-in-out infinite}
-#mute-warn.on{display:inline-block}
-@keyframes muteGlow{
-  0%,100%{transform:scale(1);border-color:rgba(194,87,43,.3);color:var(--muted)}
-  50%{transform:scale(1.12);border-color:rgba(194,87,43,.75);color:var(--rust)}
-}
 /* #yt-player-el is now a native iframe with inline style — no CSS rule needed */
 
 /* ── ROUTE OVERVIEW MAP ─────────────────── */
@@ -233,8 +226,9 @@ img{background:var(--bg3)}
 </head>
 <body>
 
-<!-- Native audio element — no YouTube, no API, just an MP3 URL -->
-<audio id="audio-player" preload="none" style="display:none"></audio>
+<!-- Two audio elements for crossfade -->
+<audio id="audio-player"   preload="none" style="display:none"></audio>
+<audio id="audio-player-2" preload="none" style="display:none"></audio>
 <!-- Now Playing — visible from start; user clicks ▶ to unlock audio -->
 <div id="now-playing">
   <span class="np-icon">♪</span>
@@ -242,7 +236,6 @@ img{background:var(--bg3)}
     <span class="np-title" id="np-title">Scroll soundtrack</span>
     <span class="np-artist" id="np-artist">click ▶ to start</span>
   </div>
-  <span id="mute-warn" title="Your computer appears to be muted">muted</span>
   <button class="np-btn" id="np-btn">▶</button>
 </div>
 
@@ -350,7 +343,7 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Do You Believe in Magic</span><span class="song-artist-text">The Lovin' Spoonful — Greenwich Village, 1965</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Manhattan_Skyline_night.jpg/1200px-Manhattan_Skyline_night.jpg" onerror="this.src='https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&q=82'" alt="New York City at night">
+          <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&q=82'" alt="New York City at night">
           <img src="https://images.unsplash.com/photo-1522083165195-3424ed129620?w=800&q=85&fit=crop&crop=center" onerror="this.src='https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?w=800&q=82'" alt="Brooklyn Bridge at dusk">
         </div>
         <div class="days">
@@ -395,7 +388,7 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">This Land Is Your Land</span><span class="song-artist-text">Woody Guthrie</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Shenandoah_valley_from_Stony_Man.jpg/1200px-Shenandoah_valley_from_Stony_Man.jpg" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=82'" alt="Shenandoah Valley panorama">
+          <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=82'" alt="Shenandoah Valley panorama">
           <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=82'" alt="Blue Ridge open road">
         </div>
         <div class="days">
@@ -447,8 +440,8 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Blue Moon of Kentucky</span><span class="song-artist-text">Bill Monroe — the original bluegrass, 1946</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Great_Smoky_Mountains_Overlook.JPG/1200px-Great_Smoky_Mountains_Overlook.JPG" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=82'" alt="Great Smoky Mountains view">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Lexington_Kentucky_horse_farm.jpg/1200px-Lexington_Kentucky_horse_farm.jpg" onerror="this.src='https://images.unsplash.com/photo-1534361960057-19f4434a5d5b?w=400&q=82'" alt="Kentucky horse farm">
+          <img src="https://images.unsplash.com/photo-1512553736880-c9e3b4e73b3b?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=82'" alt="Great Smoky Mountains view">
+          <img src="https://images.unsplash.com/photo-1534361960057-19f4434a5d5b?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1534361960057-19f4434a5d5b?w=400&q=82'" alt="Kentucky horse farm">
         </div>
         <div class="days">
           <div class="day">
@@ -501,7 +494,7 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Hey Porter</span><span class="song-artist-text">Johnny Cash — his first song, written on a train back to Tennessee</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Broadway_%28Nashville%29_lights.jpg/1200px-Broadway_%28Nashville%29_lights.jpg" onerror="this.src='https://images.unsplash.com/photo-1514124253161-7f1a7e1d14c5?w=800&q=82'" alt="Nashville honky-tonk neon at night">
+          <img src="https://images.unsplash.com/photo-1514124253161-7f1a7e1d14c5?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1514124253161-7f1a7e1d14c5?w=800&q=82'" alt="Nashville honky-tonk neon at night">
           <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&q=82'" alt="Nashville live music guitar">
         </div>
         <div class="days">
@@ -551,7 +544,7 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Walking in Memphis</span><span class="song-artist-text">Marc Cohn — 1991</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos-3">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/USA_Tour_2019_P095_Graceland.jpg/1200px-USA_Tour_2019_P095_Graceland.jpg" onerror="this.src='https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=500&q=82'" alt="Graceland mansion">
+          <img src="https://images.unsplash.com/photo-1609695001327-4beabb6a2bca?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=500&q=82'" alt="Graceland mansion">
           <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Rainy_Beale_St.jpg" onerror="this.src='https://images.unsplash.com/photo-1609695001327-4beabb6a2bca?w=500&q=82'" alt="Beale Street Memphis">
           <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1564442038901-4f9a19d3d456?w=500&q=82'" alt="Blues guitar player">
         </div>
@@ -769,7 +762,7 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Fast Life Woman</span><span class="song-artist-text">Lightnin' Hopkins · 1947</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Canyon%2C_Rio_Grande%2C_Texas.jpeg/1200px-Canyon%2C_Rio_Grande%2C_Texas.jpeg" onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=82'" alt="Big Bend Rio Grande canyon">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=82'" alt="Big Bend Rio Grande canyon">
           <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=400&q=82'" alt="Empty west Texas highway">
         </div>
         <div class="days">
@@ -832,8 +825,8 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Colorado Girl</span><span class="song-artist-text">Townes Van Zandt</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rocky_Mountain_National_Park_in_September_2011_-_Glacier_Gorge_from_Bear_Lake.JPG/1200px-Rocky_Mountain_National_Park_in_September_2011_-_Glacier_Gorge_from_Bear_Lake.JPG" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=82'" alt="Rocky Mountain National Park">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Garden_of_the_Gods_%286174065038%29.jpg/1200px-Garden_of_the_Gods_%286174065038%29.jpg" onerror="this.src='https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=400&q=82'" alt="Garden of the Gods Colorado Springs">
+          <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=82'" alt="Rocky Mountain National Park">
+          <img src="https://images.unsplash.com/photo-1564211989985-c6ee7cfb4e35?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=400&q=82'" alt="Garden of the Gods Colorado Springs">
         </div>
         <div class="days">
           <div class="day">
@@ -897,8 +890,8 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Cool Water</span><span class="song-artist-text">Sons of the Pioneers — Roy Rogers's original band, 1941</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Monument_Valley%2C_Utah%2C_USA_%2823611451292%29.jpg/1200px-Monument_Valley%2C_Utah%2C_USA_%2823611451292%29.jpg" onerror="this.src='https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?w=800&q=82'" alt="Monument Valley The Mittens">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/USA_Antelope-Canyon.jpg/1200px-USA_Antelope-Canyon.jpg" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=82'" alt="Antelope Canyon light beams">
+          <img src="https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?w=800&q=82'" alt="Monument Valley The Mittens">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=82'" alt="Antelope Canyon light beams">
         </div>
         <div class="days">
           <div class="day">
@@ -980,8 +973,8 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Just a Gigolo</span><span class="song-artist-text">Louis Prima — the godfather of the Vegas lounge sound</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Las_Vegas_Strip_09_2017_4897.jpg/1200px-Las_Vegas_Strip_09_2017_4897.jpg" onerror="this.src='https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=82'" alt="Las Vegas Strip at night">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Central_Californian_Coastline%2C_Big_Sur_-_May_2013.jpg/1200px-Central_Californian_Coastline%2C_Big_Sur_-_May_2013.jpg" onerror="this.src='https://images.unsplash.com/photo-1449034446853-66c86144b0ad?w=400&q=82'" alt="Big Sur California coastline">
+          <img src="https://images.unsplash.com/photo-1605833556294-ea5c7a74f57d?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=82'" alt="Las Vegas Strip at night">
+          <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1449034446853-66c86144b0ad?w=400&q=82'" alt="Big Sur California coastline">
         </div>
         <div class="days">
           <div class="day">
@@ -1240,7 +1233,7 @@ function loadImg(el, urls) {
 const STOP_DATA = [
   { day:'Days 1–3',   name:'New York City',                  coords:[-74.006, 40.713], zoom:11, pitch:0,  bearing:0,   yt_id:null,          chorus_sec:0  },
   { day:'Days 4–6',   name:'West Virginia & Shenandoah',     coords:[-79.500, 38.500], zoom:9,  pitch:40, bearing:-10, yt_id:'1vrEljMfXYo', chorus_sec:30 },
-  { day:'Days 7–9',   name:'Kentucky',                       coords:[-85.760, 37.200], zoom:9,  pitch:30, bearing:0,   yt_id:'gSkT_5_j4i4', chorus_sec:18 },
+  { day:'Days 7–9',   name:'Kentucky',                       coords:[-85.760, 37.200], zoom:9,  pitch:30, bearing:0,   yt_id:'m-XnzAlAess', chorus_sec:12 },
   { day:'Days 10–12',  name:'Nashville, Tennessee',           coords:[-86.782, 36.163], zoom:12, pitch:0,  bearing:0,   yt_id:'NGyUDzU4IIs', chorus_sec:22 },
   { day:'Days 13–15', name:'Memphis & Graceland',            coords:[-90.049, 35.150], zoom:12, pitch:0,  bearing:0,   yt_id:'GP6a-7MP91g', chorus_sec:62 },
   { day:'Days 16–20', name:'New Orleans, Louisiana',         coords:[-90.071, 29.951], zoom:13, pitch:0,  bearing:12,  yt_id:'DTT8O_LslzQ', chorus_sec:78 },
@@ -1320,16 +1313,9 @@ function initOverviewMap() {
 }
 
 // ── Soundtrack — native <audio> + Deezer 30-second previews ──────────────
-// Uses Deezer's public API via JSONP (works from file:// in all browsers).
-// Direct Archive.org MP3s — public domain / freely licensed live recordings.
-// Archive.org serves Access-Control-Allow-Origin:* so file:// works without issues.
-// No API, no tokens, no JSONP — just audio src = URL.
-// ─────────────────────────────────────────────────────────────────────────
-const audioEl   = document.getElementById('audio-player');
 let audUnlocked = false;
 let audPaused   = false;
 let audIdx      = -1;
-let audFadeTimer= null;
 
 const SONGS = [
   // 0 · NYC
@@ -1370,91 +1356,71 @@ const SONGS = [
     url: 'songs/viva-las-vegas.mp3' },
 ];
 
-// Smooth volume fade
-function audFade(from, to, onDone) {
-  if (audFadeTimer) { clearInterval(audFadeTimer); audFadeTimer = null; }
-  audioEl.volume = Math.max(0, Math.min(1, from / 100));
-  audFadeTimer = setInterval(() => {
-    let v = audioEl.volume * 100;
-    v = to > from ? Math.min(to, v + 4) : Math.max(to, v - 8);
-    audioEl.volume = Math.max(0, Math.min(1, v / 100));
-    if (Math.abs(v - to) < 1) {
-      audioEl.volume = to / 100;
-      clearInterval(audFadeTimer); audFadeTimer = null;
-      if (onDone) onDone();
-    }
+// ── Audio engine — two elements for true crossfade ───────────────────────
+const audEls   = [document.getElementById('audio-player'), document.getElementById('audio-player-2')];
+let   audCur   = 0;          // index of currently active element
+const AUD_VOL  = 0.72;
+const XFADE_MS = 1800;
+
+function fadeEl(el, from, to, ms, onDone) {
+  el.volume = Math.max(0, Math.min(1, from));
+  if (Math.abs(from - to) < 0.01) { el.volume = to; if (onDone) onDone(); return; }
+  const steps = Math.max(1, Math.round(ms / 40));
+  const delta = (to - from) / steps;
+  let   step  = 0;
+  const t = setInterval(() => {
+    step++;
+    el.volume = Math.max(0, Math.min(1, from + delta * step));
+    if (step >= steps) { clearInterval(t); el.volume = to; if (onDone) onDone(); }
   }, 40);
 }
 
-// Play stop — crossfade to new track
 function audPlay(idx) {
   if (idx === audIdx) return;
   audIdx = idx;
   ytUpdateWidget(idx);
   if (!audUnlocked) return;
-  const song = SONGS[idx];
-  const url  = song?.url || null;
-  if (!url) { audFade(audioEl.volume * 100, 0, () => audioEl.pause()); return; }
-  const load = () => {
-    const chorSec = STOP_DATA[idx]?.chorus_sec || 0;
-    audioEl.src = url;
-    audioEl.volume = 0;
-    if (chorSec > 0) {
-      audioEl.addEventListener('loadedmetadata', function seekOnce() {
-        audioEl.currentTime = chorSec;
-        audioEl.removeEventListener('loadedmetadata', seekOnce);
-      });
-    }
-    audioEl.play().catch(() => {});
-    audFade(0, 72);
-  };
-  if (!audioEl.paused && audioEl.volume > 0) audFade(audioEl.volume * 100, 0, load);
-  else load();
+
+  const song    = SONGS[idx];
+  const url     = song?.url || null;
+  const chorSec = STOP_DATA[idx]?.chorus_sec || 0;
+  const cur     = audEls[audCur];
+  const nxtIdx  = 1 - audCur;
+  const nxt     = audEls[nxtIdx];
+
+  if (!url) { fadeEl(cur, cur.volume, 0, 600, () => cur.pause()); return; }
+
+  nxt.src    = url;
+  nxt.volume = 0;
+  if (chorSec > 0) {
+    nxt.addEventListener('loadedmetadata', function sk() {
+      nxt.currentTime = chorSec;
+      nxt.removeEventListener('loadedmetadata', sk);
+    });
+  }
+  nxt.play().catch(() => {});
+
+  // Crossfade: both directions simultaneously
+  fadeEl(nxt, 0, AUD_VOL, XFADE_MS);
+  if (!cur.paused) fadeEl(cur, cur.volume, 0, XFADE_MS, () => { cur.pause(); cur.src = ''; });
+
+  audCur = nxtIdx;
 }
 
-// Loop track when it ends
-audioEl.addEventListener('ended', () => {
-  if (!audPaused && audIdx >= 0) {
-    audioEl.currentTime = STOP_DATA[audIdx]?.chorus_sec || 0;
-    audioEl.play().catch(() => {});
-  }
+// Loop from chorus when track ends
+audEls.forEach(el => {
+  el.addEventListener('ended', () => {
+    if (!audPaused && audIdx >= 0 && el === audEls[audCur]) {
+      el.currentTime = STOP_DATA[audIdx]?.chorus_sec || 0;
+      el.play().catch(() => {});
+    }
+  });
 });
 
-// ── Mute detection via AudioContext AnalyserNode ─────────────────────────
-let audioCtx = null, analyser = null, muteCheckTimer = null;
-const muteWarnEl = document.getElementById('mute-warn');
-
-function setupAudioContext() {
-  if (audioCtx) return;
-  try {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const src = audioCtx.createMediaElementSource(audioEl);
-    analyser  = audioCtx.createAnalyser();
-    analyser.fftSize = 256;
-    src.connect(analyser);
-    analyser.connect(audioCtx.destination);
-  } catch(e) {}
-}
-
-function checkMute() {
-  if (!analyser || audioEl.paused) { muteWarnEl.classList.remove('on'); return; }
-  const data = new Uint8Array(analyser.frequencyBinCount);
-  analyser.getByteTimeDomainData(data);
-  muteWarnEl.classList.toggle('on', data.every(v => v === 128));
-}
-
-function startMuteCheck() {
-  setupAudioContext();
-  if (audioCtx) audioCtx.resume().catch(() => {});
-  if (muteCheckTimer) clearInterval(muteCheckTimer);
-  muteCheckTimer = setInterval(checkMute, 900);
-}
-
-// ── Unlock audio — called from autoplay attempt or first pointer interaction
+// ── Unlock audio ──────────────────────────────────────────────────────────
 function audFirstPlay() {
   if (audUnlocked) return;
   audUnlocked = true;
-  startMuteCheck();
   let idx = audIdx >= 0 ? audIdx : 0;
   if (!SONGS[idx]) idx = SONGS.findIndex(s => s);
   audIdx = -1;
@@ -1463,30 +1429,27 @@ function audFirstPlay() {
 
 // ── Autoplay: try immediately, fall back to first pointerdown ─────────────
 function tryAutoplay() {
-  const idx = Math.max(0, audIdx >= 0 ? audIdx : 0);
+  const idx  = audIdx >= 0 ? audIdx : 0;
   const song = SONGS[idx];
   if (!song?.url) return;
-  audioEl.src = song.url;
-  audioEl.volume = 0;
+  const el      = audEls[audCur];
   const chorSec = STOP_DATA[idx]?.chorus_sec || 0;
+  el.src    = song.url;
+  el.volume = 0;
   if (chorSec > 0) {
-    audioEl.addEventListener('loadedmetadata', function sk() {
-      audioEl.currentTime = chorSec;
-      audioEl.removeEventListener('loadedmetadata', sk);
+    el.addEventListener('loadedmetadata', function sk() {
+      el.currentTime = chorSec;
+      el.removeEventListener('loadedmetadata', sk);
     });
   }
-  audioEl.play().then(() => {
+  el.play().then(() => {
     audUnlocked = true;
     audIdx = idx;
     ytUpdateWidget(idx);
     document.getElementById('np-btn').textContent = '⏸';
-    audFade(0, 72);
-    startMuteCheck();
+    fadeEl(el, 0, AUD_VOL, 1200);
   }).catch(() => {
-    // Autoplay blocked — unlock silently on the very first pointer interaction
-    // (on mobile this fires on the first scroll touch, requiring zero extra steps)
     document.addEventListener('pointerdown', function unlockOnce() {
-      document.removeEventListener('pointerdown', unlockOnce);
       audFirstPlay();
     }, { once: true });
   });
@@ -1675,8 +1638,8 @@ window.addEventListener('DOMContentLoaded', () => {
   ]);
   loadImg(document.getElementById('win-ext'), [
     'https://img.youtube.com/vi/nFMPfTCsDtM/maxresdefault.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/2018_Winnebago_Travato_%28Ram_ProMaster%29%2C_rear_left.jpg/1200px-2018_Winnebago_Travato_%28Ram_ProMaster%29%2C_rear_left.jpg',
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Winnebago_Travato_%2852877555311%29.jpg/1200px-Winnebago_Travato_%2852877555311%29.jpg',
+    'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1000&q=88&fit=crop',
+    'https://images.unsplash.com/photo-1527684651001-731c474bbb5a?w=1000&q=88&fit=crop',
     'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1000&q=88&fit=crop',
   ]);
   loadImg(document.getElementById('win-int'), [
@@ -1705,15 +1668,15 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     if (!audPaused) {
       audPaused = true;
-      audFade(audioEl.volume * 100, 0, () => audioEl.pause());
+      const el = audEls[audCur];
+      fadeEl(el, el.volume, 0, 600, () => el.pause());
       btn.textContent = '▶';
-      muteWarnEl.classList.remove('on');
     } else {
       audPaused = false;
-      audioEl.play().catch(() => {});
-      audFade(0, 72);
+      const el = audEls[audCur];
+      el.play().catch(() => {});
+      fadeEl(el, el.volume, AUD_VOL, 600);
       btn.textContent = '⏸';
-      startMuteCheck();
     }
   });
 
