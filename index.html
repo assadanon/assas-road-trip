@@ -40,8 +40,10 @@ a{color:var(--rust);text-decoration:none}
 .hero-sub em{color:var(--gold);font-style:italic}
 .hero-made-with{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:rgba(212,201,188,.85);margin-bottom:32px;text-shadow:0 1px 6px rgba(0,0,0,.8)}.hero-made-with a{color:rgba(212,201,188,.85);text-decoration:none;border-bottom:1px solid rgba(212,201,188,.4)}.hero-made-with a:hover{color:#fff}
 /* ── MUSIC INTRO ─────────────────────────────────── */
-.music-intro{min-height:100vh;display:flex;align-items:center;background:var(--bg2);border-top:1px solid var(--line)}
-.music-intro-inner{padding:100px 72px;max-width:720px}
+.music-intro{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;background:var(--bg2);border-top:1px solid var(--line)}
+.music-intro-inner{padding:80px 72px;display:flex;flex-direction:column;justify-content:center;max-width:600px}
+.music-intro-img{overflow:hidden;position:relative}
+.music-intro-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.6) saturate(.75)}
 .music-intro-h{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,92px);font-weight:300;line-height:.95;letter-spacing:-.02em;color:var(--white);margin:16px 0 32px}
 .music-intro-h em{font-style:italic;color:var(--gold)}
 .music-intro-body{font-size:16px;line-height:1.85;color:var(--cream);opacity:.75;max-width:540px;margin-bottom:16px}
@@ -326,6 +328,9 @@ img{background:var(--bg3)}
       Start — Chelsea Hotel No. 2 &nbsp;·&nbsp; Leonard Cohen
     </button>
     <p class="music-play-hint">Then scroll down. The music follows you.</p>
+  </div>
+  <div class="music-intro-img">
+    <img src="https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=1200&q=88&fit=crop" alt="Atmospheric road at dusk">
   </div>
 </div>
 
