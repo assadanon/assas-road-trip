@@ -38,7 +38,7 @@ a{color:var(--rust);text-decoration:none}
 .hero h1{font-size:clamp(56px,9vw,108px);line-height:.93;letter-spacing:-.03em;color:var(--white);margin-bottom:28px}
 .hero h1 em{font-style:italic;color:var(--gold)}
 .hero-made-with{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,201,188,.65);margin-top:-18px;margin-bottom:32px;text-shadow:0 1px 6px rgba(0,0,0,.8)}.hero-made-with a{color:rgba(212,201,188,.65);text-decoration:none;border-bottom:1px solid rgba(212,201,188,.3)}.hero-made-with a:hover{color:rgba(212,201,188,.95)}
-.hero h1 .hero-soundtrack{display:block;font-size:clamp(14px,1.8vw,20px);font-style:normal;color:rgba(212,201,188,.72);letter-spacing:.06em;font-weight:300;margin-top:10px;text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.hero h1 .hero-soundtrack{display:block;font-size:clamp(22px,3vw,42px);font-style:italic;color:var(--gold);letter-spacing:-.01em;font-weight:300;margin-top:6px;text-shadow:0 1px 10px rgba(0,0,0,.9);opacity:.88}
 .hero-desc{font-size:16px;max-width:520px;opacity:.95;line-height:1.7;margin-bottom:40px;text-shadow:0 1px 10px rgba(0,0,0,.7)}
 .hero-tags{display:flex;gap:10px;flex-wrap:wrap}
 .hero-tag{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:7px 16px;border:1px solid rgba(212,201,188,.55);border-radius:100px;color:rgba(212,201,188,.92);background:rgba(12,9,6,.35);backdrop-filter:blur(4px);text-shadow:0 1px 4px rgba(0,0,0,.6)}
@@ -202,6 +202,8 @@ img{background:var(--bg3)}
 .route-map-desc{font-size:15px;opacity:.5;max-width:440px;line-height:1.7;margin-bottom:36px}
 .route-map-scroll{pointer-events:all;display:inline-block;font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--rust);text-decoration:none;transition:opacity .2s}
 .route-map-scroll:hover{opacity:.7}
+.btn-begin{pointer-events:all;background:none;border:1.5px solid rgba(194,87,43,.75);color:var(--rust);font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;padding:16px 40px;border-radius:100px;cursor:pointer;transition:background .25s,color .25s,border-color .25s,box-shadow .25s}
+.btn-begin:hover{background:var(--rust);color:#fff;border-color:var(--rust);box-shadow:0 0 24px rgba(194,87,43,.3)}
 .route-map-stops{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:24px;pointer-events:none}
 .route-map-stop-tag{font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(212,201,188,.35);padding:5px 12px;border:1px solid rgba(212,201,188,.1);border-radius:100px}
 
@@ -296,7 +298,7 @@ img{background:var(--bg3)}
     </div>
     <h2 class="route-map-title">NYC → <em>California</em></h2>
     <p class="route-map-desc">~7,200 km. Eleven stops. One road south through the music and the heat, then west into the desert and the light.</p>
-    <a class="route-map-scroll" href="#journey">Begin the journey ↓</a>
+    <button class="btn-begin" onclick="audFirstPlay(); setTimeout(()=>document.getElementById('journey').scrollIntoView({behavior:'smooth'}),80)">Begin the Journey ↓</button>
   </div>
 </div>
 
@@ -442,7 +444,7 @@ img{background:var(--bg3)}
         </a>
         <div class="stop-photos">
           <img src="https://images.unsplash.com/photo-1512553736880-c9e3b4e73b3b?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=82'" alt="Great Smoky Mountains view">
-          <img src="https://images.unsplash.com/photo-1534361960057-19f4434a5d5b?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1534361960057-19f4434a5d5b?w=400&q=82'" alt="Kentucky horse farm">
+          <img src="https://images.unsplash.com/photo-1534361960057-19f4434a5d5b?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=82'" alt="Kentucky horse farm">
         </div>
         <div class="days">
           <div class="day">
@@ -495,7 +497,7 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Hey Porter</span><span class="song-artist-text">Johnny Cash — his first song, written on a train back to Tennessee</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://images.unsplash.com/photo-1514124253161-7f1a7e1d14c5?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1514124253161-7f1a7e1d14c5?w=800&q=82'" alt="Nashville honky-tonk neon at night">
+          <img src="https://images.unsplash.com/photo-1514124253161-7f1a7e1d14c5?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=82'" alt="Nashville honky-tonk neon at night">
           <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&q=82'" alt="Nashville live music guitar">
         </div>
         <div class="days">
@@ -546,8 +548,8 @@ img{background:var(--bg3)}
         </a>
         <div class="stop-photos-3">
           <img src="https://images.unsplash.com/photo-1609695001327-4beabb6a2bca?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=500&q=82'" alt="Graceland mansion">
-          <img src="https://images.unsplash.com/photo-1609695001327-4beabb6a2bca?w=500&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1609695001327-4beabb6a2bca?w=500&q=82'" alt="Beale Street Memphis">
-          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1564442038901-4f9a19d3d456?w=500&q=82'" alt="Blues guitar player">
+          <img src="https://images.unsplash.com/photo-1527416629927-c3e4e97a5c79?w=500&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=500&q=82'" alt="Beale Street Memphis neon">
+          <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=500&q=82'" alt="Blues guitar player">
         </div>
         <div class="days">
           <div class="day">
@@ -599,8 +601,8 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Down There by the Train</span><span class="song-artist-text">Tom Waits — Johnny Cash also covered this beautifully</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1568347877321-f8935f7c59be?w=800&q=82'" alt="New Orleans Bourbon Street at night">
-          <img src="https://images.unsplash.com/photo-1568347877321-f8935f7c59be?w=800&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=400&q=82'" alt="New Orleans balconies">
+          <img src="https://images.unsplash.com/photo-1596785419479-af7480a35ba9?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=800&q=82'" alt="New Orleans French Quarter night">
+          <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=800&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1568347877321-f8935f7c59be?w=400&q=82'" alt="New Orleans street musician jazz">
         </div>
         <div class="days">
           <div class="day">
@@ -713,7 +715,7 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Rocket Man</span><span class="song-artist-text">Elton John — 1972</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1541873676-a18131494184?w=800&q=82'" alt="SpaceX Starship rocket launch">
+          <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1559638753-d87b1b55f5f7?w=800&q=82'" alt="SpaceX Starship launch night sky">
           <img src="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=500&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=82'" alt="South Padre Island beach">
         </div>
         <div class="days">
@@ -827,7 +829,7 @@ img{background:var(--bg3)}
         </a>
         <div class="stop-photos">
           <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=82'" alt="Rocky Mountain National Park">
-          <img src="https://images.unsplash.com/photo-1564211989985-c6ee7cfb4e35?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=400&q=82'" alt="Garden of the Gods Colorado Springs">
+          <img src="https://images.unsplash.com/photo-1564211989985-c6ee7cfb4e35?w=1200&q=85&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1472791133427-f60f0dc75d06?w=400&q=82'" alt="Garden of the Gods Colorado Springs">
         </div>
         <div class="days">
           <div class="day">
@@ -1645,14 +1647,16 @@ function flyToStop(idx) {
     segLens.push(l); totalLen += l;
   }
 
-  // Fit camera to show the full traversal segment
-  const lngs = pts.map(p => p[0]), lats = pts.map(p => p[1]);
-  map.fitBounds(
-    [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
-    { padding: 90, pitch: 0, bearing: 0, duration: 500, essential: true }
-  );
+  // Only pan out to show the traversal when spanning 4+ route segments
+  if (pts.length > 4) {
+    const lngs = pts.map(p => p[0]), lats = pts.map(p => p[1]);
+    map.fitBounds(
+      [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
+      { padding: 90, pitch: 0, bearing: 0, duration: 420, essential: true }
+    );
+  }
 
-  const ANIM_DUR = 1800;
+  const ANIM_DUR = Math.min(2000, Math.max(500, pts.length * 130));
   const t0 = performance.now();
 
   function tick(now) {
@@ -1700,19 +1704,17 @@ function findActiveStopIdx() {
   return idx;
 }
 
-let rafPending = false;
+let scrollTimer = null;
 window.addEventListener('scroll', () => {
   if (!audPaused) {
     const idxNow = findActiveStopIdx();
-    if (idxNow >= 0) audPlay(idxNow); // no-op until audUnlocked
+    if (idxNow >= 0) audPlay(idxNow);
   }
-  if (rafPending) return;
-  rafPending = true;
-  requestAnimationFrame(() => {
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(() => {
     const idx = findActiveStopIdx();
     if (idx >= 0 && idx !== currentStopIdx) flyToStop(idx);
-    rafPending = false;
-  });
+  }, 60);
 }, { passive: true });
 
 // ── Boot ──────────────────────────────────────────────────────────────────
@@ -1720,26 +1722,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Vehicle photos
   loadImg(document.getElementById('air-ext'), [
-    'https://www.airstream.com/wp-content/uploads/2021/06/Airstream-Interstate-24X-Adventure-Van-Exterior-Studio-Street-Side.jpg',
-    'https://www.airstream.com/wp-content/uploads/2021/06/Airstream-Interstate-24X-Driving-on-Road-Lifestyle.jpg',
     'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1000&q=88&fit=crop',
+    'https://images.unsplash.com/photo-1527684651001-731c474bbb5a?w=1000&q=88&fit=crop',
   ]);
   loadImg(document.getElementById('air-int'), [
-    'https://www.airstream.com/wp-content/uploads/2021/06/Airstream-Interstate-24X-Front-to-Back-interior-Red-Rock.jpg',
-    'https://www.airstream.com/wp-content/uploads/2021/06/Airstream-Interstate-24X-Kitchen-Feature.jpg',
-    'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1000&q=85&fit=crop',
+    'https://images.unsplash.com/photo-1585974738771-84483dd9f89f?w=1000&q=85&fit=crop',
+    'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1000&q=85&fit=crop',
   ]);
   loadImg(document.getElementById('win-ext'), [
     'https://img.youtube.com/vi/nFMPfTCsDtM/maxresdefault.jpg',
-    'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1000&q=88&fit=crop',
     'https://images.unsplash.com/photo-1527684651001-731c474bbb5a?w=1000&q=88&fit=crop',
-    'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1000&q=88&fit=crop',
   ]);
   loadImg(document.getElementById('win-int'), [
-    'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1000&q=85&fit=crop',
-    'https://images.unsplash.com/photo-1527684651001-731c474bbb5a?w=1000&q=85&fit=crop',
+    'https://images.unsplash.com/photo-1601942394238-7e3571b9c5b9?w=1000&q=85&fit=crop',
     'https://images.unsplash.com/photo-1585974738771-84483dd9f89f?w=1000&q=85&fit=crop',
-    'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1000&q=85&fit=crop',
   ]);
 
   // No prefetch needed — Archive.org URLs are static, loaded directly by <audio>
