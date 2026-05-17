@@ -70,7 +70,7 @@ a{color:var(--rust);text-decoration:none}
 .map-overlay{padding:18px 24px;background:var(--bg2);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
 
 /* Stop dot markers on map */
-.map-dot{width:22px;height:22px;border-radius:50%;background:var(--bg);border:1.5px solid rgba(194,87,43,.55);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:8px;font-weight:500;color:rgba(194,87,43,.65);transition:background .35s,border-color .35s,color .35s,width .35s,height .35s,font-size .35s,box-shadow .35s;cursor:default}
+.map-dot{width:22px;height:22px;border-radius:50%;background:var(--bg);border:1.5px solid rgba(194,87,43,.55);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:8px;font-weight:500;color:rgba(194,87,43,.65);transition:background .35s,border-color .35s,color .35s,width .35s,height .35s,font-size .35s,box-shadow .35s;cursor:pointer}
 .map-dot.active{background:var(--rust);border-color:var(--rust);color:#fff;width:30px;height:30px;font-size:10px;box-shadow:0 0 0 5px rgba(194,87,43,.18),0 0 16px rgba(194,87,43,.3)}
 .map-stop-info{}
 .map-stop-day{font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
@@ -1599,6 +1599,10 @@ function initMap() {
       const el = document.createElement('div');
       el.className = 'map-dot';
       el.innerHTML = `<span>${i + 1}</span>`;
+      el.addEventListener('click', () => {
+        const stopEl = document.querySelector(`[data-stop="${i}"]`);
+        if (stopEl) stopEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
       markerEls.push(el);
       new maplibregl.Marker({ element: el, anchor:'center' })
         .setLngLat(s.coords).addTo(map);
@@ -1659,7 +1663,6 @@ function flyToStop(idx) {
   linkEl.href = `https://maps.google.com/maps?q=${encodeURIComponent(s.name)}`;
 
   if (travelerAnimFrame) { cancelAnimationFrame(travelerAnimFrame); travelerAnimFrame = null; }
-  if (mapOverviewMode) { mapOverviewMode = false; document.getElementById('map-overview-btn').classList.remove('active'); }
 
   // Find the route index nearest to where the dot actually IS visually right now.
   // Using travelerRouteIdx (the claimed destination) causes jumps on rapid scroll
@@ -1702,10 +1705,10 @@ function flyToStop(idx) {
 
   const ANIM_DUR = Math.min(2200, Math.max(600, pts.length * 140));
 
-  // Fly camera to destination at the same pace as the dot animation.
-  // The old approach used fitBounds BEFORE the dot — concurrent camera panning
-  // made the dot appear to come from wrong directions. Now both move together.
-  map.flyTo({ center: s.coords, zoom: s.zoom, pitch: s.pitch || 0, bearing: s.bearing || 0, duration: ANIM_DUR, essential: true });
+  // In overview mode keep the camera at the full-route view; dot animates on the zoomed-out map.
+  if (!mapOverviewMode) {
+    map.flyTo({ center: s.coords, zoom: s.zoom, pitch: s.pitch || 0, bearing: s.bearing || 0, duration: ANIM_DUR, essential: true });
+  }
 
   const t0 = performance.now();
 
