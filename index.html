@@ -330,7 +330,7 @@ img{background:var(--bg3)}
     <p class="music-play-hint">Then scroll down. The music follows you.</p>
   </div>
   <div class="music-intro-img">
-    <img src="https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=1200&q=88&fit=crop" alt="Atmospheric road at dusk">
+    <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1200&q=88&fit=crop" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1501612780327-45045538702b?w=1200&q=88&fit=crop'" alt="Live music stage country">
   </div>
 </div>
 
@@ -379,7 +379,7 @@ img{background:var(--bg3)}
         </a>
         <div class="stop-photos">
           <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Manhattan_Skyline_from_Brooklyn_Bridge_Park.jpg" onerror="this.src='https://images.unsplash.com/photo-1534430480872-3498386e7856?w=900&q=85'" alt="Manhattan skyline from Brooklyn Bridge Park">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/New_York_High_Line_%286988905782%29.jpg" onerror="this.src='https://images.unsplash.com/photo-1534430480872-3498386e7856?w=900&q=85'" alt="The High Line elevated park New York">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Times_Square%2C_New_York_City_%28cropped%29.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1534430480872-3498386e7856?w=900&q=85'" alt="Times Square New York City at night">
         </div>
         <div class="days">
           <div class="day">
@@ -475,7 +475,7 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Blue Moon of Kentucky</span><span class="song-artist-text">Bill Monroe — the original bluegrass, 1946</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Mammoth_cave.JPG" onerror="this.src='https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=900&q=85'" alt="Mammoth Cave National Park Kentucky">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Mammoth_Cave_1.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=900&q=85&fit=crop'" alt="Mammoth Cave interior dramatic formations">
           <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Kentucky_horse_farm.JPEG" onerror="this.src='https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=900&q=85'" alt="Lexington Kentucky horse farm white fencing">
         </div>
         <div class="days">
@@ -633,7 +633,7 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Down There by the Train</span><span class="song-artist-text">Tom Waits — Johnny Cash also covered this beautifully</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Cast-Iron_Balconies%2C_New_Orleans_French_Quarter%2C_April_2023.jpg" onerror="this.src='https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=900&q=85&fit=crop'" alt="New Orleans French Quarter cast iron balconies">
+          <img src="https://images.unsplash.com/photo-1527030280862-64139fba04ca?w=900&q=85&fit=crop" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=900&q=85&fit=crop'" alt="New Orleans live music club jazz bar">
           <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/10Nov2014FQ_Jenavive_Windin_Boys.jpg" onerror="this.src='https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=900&q=85&fit=crop'" alt="New Orleans jazz musicians French Quarter">
         </div>
         <div class="days">
@@ -747,7 +747,7 @@ img{background:var(--bg3)}
           <div class="song-info"><span class="song-title-text">Rocket Man</span><span class="song-artist-text">Elton John — 1972</span><span class="song-open">Open in Spotify →</span></div>
         </a>
         <div class="stop-photos">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Starbase.jpg" onerror="this.src='https://images.unsplash.com/photo-1559638753-d87b1b55f5f7?w=900&q=85&fit=crop'" alt="SpaceX Starbase Boca Chica Texas">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Starship_IFT-4_liftoff_%2853839027628%29.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1541873676-a18131494184?w=900&q=85&fit=crop'" alt="SpaceX Starship rocket launch liftoff">
           <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/South_Padre_Island_beach_panorama.jpg" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=85&fit=crop'" alt="South Padre Island beach Texas">
         </div>
         <div class="days">
@@ -1673,16 +1673,13 @@ function flyToStop(idx) {
     segLens.push(l); totalLen += l;
   }
 
-  // Only pan out to show the traversal when spanning 4+ route segments
-  if (pts.length > 4) {
-    const lngs = pts.map(p => p[0]), lats = pts.map(p => p[1]);
-    map.fitBounds(
-      [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
-      { padding: 90, pitch: 0, bearing: 0, duration: 420, essential: true }
-    );
-  }
+  const ANIM_DUR = Math.min(2200, Math.max(600, pts.length * 140));
 
-  const ANIM_DUR = Math.min(2000, Math.max(500, pts.length * 130));
+  // Fly camera to destination at the same pace as the dot animation.
+  // The old approach used fitBounds BEFORE the dot — concurrent camera panning
+  // made the dot appear to come from wrong directions. Now both move together.
+  map.flyTo({ center: s.coords, zoom: s.zoom, pitch: s.pitch || 0, bearing: s.bearing || 0, duration: ANIM_DUR, essential: true });
+
   const t0 = performance.now();
 
   function tick(now) {
@@ -1693,7 +1690,7 @@ function flyToStop(idx) {
     let accum = 0, coord = pts[pts.length - 1];
     for (let i = 0; i < segLens.length; i++) {
       if (accum + segLens[i] >= dist) {
-        const st = (dist - accum) / segLens[i];
+        const st = segLens[i] > 0 ? (dist - accum) / segLens[i] : 0;
         coord = [pts[i][0] + (pts[i+1][0] - pts[i][0]) * st, pts[i][1] + (pts[i+1][1] - pts[i][1]) * st];
         break;
       }
@@ -1706,9 +1703,6 @@ function flyToStop(idx) {
     } else {
       setTravelerCoord(s.coords);
       travelerAnimFrame = null;
-      setTimeout(() => {
-        map.flyTo({ center: s.coords, zoom: s.zoom, pitch: s.pitch || 0, bearing: s.bearing || 0, duration: 1500, essential: true });
-      }, 100);
     }
   }
 
@@ -1747,23 +1741,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Vehicle photos
   loadImg(document.getElementById('air-ext'), [
-    'https://upload.wikimedia.org/wikipedia/commons/8/88/Airstream_Interstate_Grand_Tour_EXT_%282019%29.jpg',
+    'https://www.airstream.com/wp-content/uploads/2025/10/Gallery-Images-1920x1080-824GT-Ext-HTS.jpg',
     'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1000&q=88&fit=crop',
-    'https://images.unsplash.com/photo-1527684651001-731c474bbb5a?w=1000&q=88&fit=crop',
   ]);
   loadImg(document.getElementById('air-int'), [
-    'https://upload.wikimedia.org/wikipedia/commons/3/30/Airstream_Interstate_Grand_Tour_INT_%282019%29.jpg',
+    'https://www.airstream.com/wp-content/uploads/2018/10/Interstate-Grand-Tour-EXT-Touring-Coaches-interior-seating.jpg',
     'https://images.unsplash.com/photo-1585974738771-84483dd9f89f?w=1000&q=85&fit=crop',
-    'https://images.unsplash.com/photo-1601942394238-7e3571b9c5b9?w=1000&q=85&fit=crop',
   ]);
   loadImg(document.getElementById('win-ext'), [
+    'https://rvenvy-uploads-edit-feature.s3.amazonaws.com/2024_Winnebago_Travato.jpg',
     'https://upload.wikimedia.org/wikipedia/commons/4/44/Winnebago_Travato_%2852877555311%29.jpg',
-    'https://images.unsplash.com/photo-1527684651001-731c474bbb5a?w=1000&q=88&fit=crop',
   ]);
   loadImg(document.getElementById('win-int'), [
-    'https://upload.wikimedia.org/wikipedia/commons/6/67/Winnebago_Travato_59GL_interior.jpg',
+    'https://i.ytimg.com/vi/9Ms0pDsaxwY/maxresdefault.jpg',
     'https://images.unsplash.com/photo-1601942394238-7e3571b9c5b9?w=1000&q=85&fit=crop',
-    'https://images.unsplash.com/photo-1585974738771-84483dd9f89f?w=1000&q=85&fit=crop',
   ]);
 
   // No prefetch needed — Archive.org URLs are static, loaded directly by <audio>
