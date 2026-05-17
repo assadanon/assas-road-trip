@@ -190,17 +190,13 @@ img{background:var(--bg3)}
 .np-artist{font-size:10px;color:var(--gold);opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .np-btn{background:none;border:1px solid rgba(212,201,188,.12);border-radius:6px;color:var(--muted);font-size:12px;padding:4px 8px;cursor:pointer;flex-shrink:0;line-height:1;transition:color .15s,border-color .15s}
 .np-btn:hover{color:var(--white);border-color:rgba(212,201,188,.3)}
-/* Mute warning icon */
-#mute-warn{font-size:15px;opacity:0;pointer-events:none;transition:opacity .4s;flex-shrink:0;display:inline-block}
-#mute-warn.on{opacity:1;animation:muteGlow 1.4s ease-in-out infinite}
+/* Mute warning — styled identically to .np-btn, hidden until muted */
+#mute-warn{display:none;background:none;border:1px solid rgba(194,87,43,.35);border-radius:6px;color:var(--rust);font-size:11px;padding:4px 8px;flex-shrink:0;line-height:1;pointer-events:none;animation:muteGlow 1.6s ease-in-out infinite}
+#mute-warn.on{display:inline-block}
 @keyframes muteGlow{
-  0%,100%{transform:scale(1);filter:drop-shadow(0 0 0px rgba(194,87,43,0))}
-  50%{transform:scale(1.4);filter:drop-shadow(0 0 10px rgba(194,87,43,.9))}
+  0%,100%{transform:scale(1);border-color:rgba(194,87,43,.3);color:var(--muted)}
+  50%{transform:scale(1.12);border-color:rgba(194,87,43,.75);color:var(--rust)}
 }
-/* Tap-to-start banner */
-#tap-banner{position:fixed;bottom:88px;right:28px;z-index:199;background:rgba(12,9,6,.9);border:1px solid rgba(194,87,43,.45);border-radius:10px;padding:10px 18px;font-size:12px;color:var(--cream);letter-spacing:.04em;cursor:pointer;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s;pointer-events:none;white-space:nowrap;user-select:none}
-#tap-banner.on{opacity:1;transform:translateY(0);pointer-events:auto}
-#tap-banner span{color:var(--rust);margin-right:6px}
 /* #yt-player-el is now a native iframe with inline style — no CSS rule needed */
 
 /* ── ROUTE OVERVIEW MAP ─────────────────── */
@@ -240,14 +236,13 @@ img{background:var(--bg3)}
 <!-- Native audio element — no YouTube, no API, just an MP3 URL -->
 <audio id="audio-player" preload="none" style="display:none"></audio>
 <!-- Now Playing — visible from start; user clicks ▶ to unlock audio -->
-<div id="tap-banner"><span>♪</span>tap anywhere to start the soundtrack</div>
 <div id="now-playing">
   <span class="np-icon">♪</span>
   <div class="np-info">
     <span class="np-title" id="np-title">Scroll soundtrack</span>
     <span class="np-artist" id="np-artist">click ▶ to start</span>
   </div>
-  <span id="mute-warn" title="Your computer appears to be muted">🔇</span>
+  <span id="mute-warn" title="Your computer appears to be muted">muted</span>
   <button class="np-btn" id="np-btn">▶</button>
 </div>
 
@@ -1438,16 +1433,14 @@ function setupAudioContext() {
     analyser.fftSize = 256;
     src.connect(analyser);
     analyser.connect(audioCtx.destination);
-  } catch(e) { console.warn('AudioContext setup failed', e); }
+  } catch(e) {}
 }
 
 function checkMute() {
   if (!analyser || audioEl.paused) { muteWarnEl.classList.remove('on'); return; }
   const data = new Uint8Array(analyser.frequencyBinCount);
   analyser.getByteTimeDomainData(data);
-  // All values at 128 = DC bias = silence = system muted
-  const isMuted = data.every(v => v === 128);
-  muteWarnEl.classList.toggle('on', isMuted);
+  muteWarnEl.classList.toggle('on', data.every(v => v === 128));
 }
 
 function startMuteCheck() {
@@ -1457,42 +1450,46 @@ function startMuteCheck() {
   muteCheckTimer = setInterval(checkMute, 900);
 }
 
-// ── Tap-to-start banner ───────────────────────────────────────────────────
-const tapBannerEl = document.getElementById('tap-banner');
-let tapBannerShown = false;
-
-function showTapBanner() {
-  if (tapBannerShown || audUnlocked) return;
-  tapBannerShown = true;
-  tapBannerEl.classList.add('on');
-}
-function hideTapBanner() {
-  tapBannerEl.classList.remove('on');
-}
-
-tapBannerEl.addEventListener('click', () => {
-  hideTapBanner();
-  audFirstPlay();
-});
-
-// Any click anywhere while banner is visible also unlocks
-document.addEventListener('click', e => {
-  if (tapBannerShown && !audUnlocked && e.target !== tapBannerEl) {
-    hideTapBanner();
-    audFirstPlay();
-  }
-});
-
-// First ▶ click — audio.play() inside click handler = always works
+// ── Unlock audio — called from autoplay attempt or first pointer interaction
 function audFirstPlay() {
   if (audUnlocked) return;
   audUnlocked = true;
-  hideTapBanner();
   startMuteCheck();
   let idx = audIdx >= 0 ? audIdx : 0;
   if (!SONGS[idx]) idx = SONGS.findIndex(s => s);
   audIdx = -1;
   audPlay(idx);
+}
+
+// ── Autoplay: try immediately, fall back to first pointerdown ─────────────
+function tryAutoplay() {
+  const idx = Math.max(0, audIdx >= 0 ? audIdx : 0);
+  const song = SONGS[idx];
+  if (!song?.url) return;
+  audioEl.src = song.url;
+  audioEl.volume = 0;
+  const chorSec = STOP_DATA[idx]?.chorus_sec || 0;
+  if (chorSec > 0) {
+    audioEl.addEventListener('loadedmetadata', function sk() {
+      audioEl.currentTime = chorSec;
+      audioEl.removeEventListener('loadedmetadata', sk);
+    });
+  }
+  audioEl.play().then(() => {
+    audUnlocked = true;
+    audIdx = idx;
+    ytUpdateWidget(idx);
+    document.getElementById('np-btn').textContent = '⏸';
+    audFade(0, 72);
+    startMuteCheck();
+  }).catch(() => {
+    // Autoplay blocked — unlock silently on the very first pointer interaction
+    // (on mobile this fires on the first scroll touch, requiring zero extra steps)
+    document.addEventListener('pointerdown', function unlockOnce() {
+      document.removeEventListener('pointerdown', unlockOnce);
+      audFirstPlay();
+    }, { once: true });
+  });
 }
 
 function ytUpdateWidget(idx) {
@@ -1649,7 +1646,6 @@ function findActiveStopIdx() {
 
 let rafPending = false;
 window.addEventListener('scroll', () => {
-  if (!audUnlocked) showTapBanner();
   if (!audPaused) {
     const idxNow = findActiveStopIdx();
     if (idxNow >= 0) audPlay(idxNow); // no-op until audUnlocked
@@ -1724,6 +1720,9 @@ window.addEventListener('DOMContentLoaded', () => {
   // Init maps
   initOverviewMap();
   initMap();
+
+  // Try to autoplay immediately; falls back to first pointerdown if blocked
+  tryAutoplay();
 });
 </script>
 </body>
