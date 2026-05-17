@@ -70,7 +70,7 @@ a{color:var(--rust);text-decoration:none}
 .map-overlay{padding:18px 24px;background:var(--bg2);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
 
 /* Stop dot markers on map */
-.map-dot{width:22px;height:22px;border-radius:50%;background:var(--bg);border:1.5px solid rgba(194,87,43,.55);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:8px;font-weight:500;color:rgba(194,87,43,.65);transition:all .35s ease;cursor:default}
+.map-dot{width:22px;height:22px;border-radius:50%;background:var(--bg);border:1.5px solid rgba(194,87,43,.55);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:8px;font-weight:500;color:rgba(194,87,43,.65);transition:background .35s,border-color .35s,color .35s,width .35s,height .35s,font-size .35s,box-shadow .35s;cursor:default}
 .map-dot.active{background:var(--rust);border-color:var(--rust);color:#fff;width:30px;height:30px;font-size:10px;box-shadow:0 0 0 5px rgba(194,87,43,.18),0 0 16px rgba(194,87,43,.3)}
 .map-stop-info{}
 .map-stop-day{font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
