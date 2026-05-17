@@ -38,7 +38,7 @@ a{color:var(--rust);text-decoration:none}
 .hero h1{font-size:clamp(56px,9vw,108px);line-height:.93;letter-spacing:-.03em;color:var(--white);margin-bottom:28px}
 .hero h1 em{font-style:italic;color:var(--gold)}
 .hero-made-with{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,201,188,.65);margin-top:-18px;margin-bottom:32px;text-shadow:0 1px 6px rgba(0,0,0,.8)}.hero-made-with a{color:rgba(212,201,188,.65);text-decoration:none;border-bottom:1px solid rgba(212,201,188,.3)}.hero-made-with a:hover{color:rgba(212,201,188,.95)}
-.hero h1 .hero-soundtrack{display:block;font-size:clamp(22px,3vw,42px);font-style:italic;color:var(--gold);letter-spacing:-.01em;font-weight:300;margin-top:6px;text-shadow:0 1px 10px rgba(0,0,0,.9);opacity:.88}
+.hero h1 .hero-soundtrack{display:block;font-style:italic;color:rgba(212,201,188,.55);letter-spacing:-.03em;font-weight:300;text-shadow:0 1px 10px rgba(0,0,0,.9)}
 .hero-desc{font-size:16px;max-width:520px;opacity:.95;line-height:1.7;margin-bottom:40px;text-shadow:0 1px 10px rgba(0,0,0,.7)}
 .hero-tags{display:flex;gap:10px;flex-wrap:wrap}
 .hero-tag{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:7px 16px;border:1px solid rgba(212,201,188,.55);border-radius:100px;color:rgba(212,201,188,.92);background:rgba(12,9,6,.35);backdrop-filter:blur(4px);text-shadow:0 1px 4px rgba(0,0,0,.6)}
@@ -248,7 +248,7 @@ img{background:var(--bg3)}
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">New York City → California &nbsp;·&nbsp; 42 Days &nbsp;·&nbsp; ~7,400 km</div>
-    <h1>Best Road Trip<br><em>by Assa</em><span class="hero-soundtrack">· soundtrack included</span></h1>
+    <h1>Best Road Trip<br><em>by Assa &nbsp;·&nbsp; soundtrack included</em></h1>
     <p class="hero-made-with">made with <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer">Claude Code</a></p>
     <p class="hero-desc">A road trip with no flights. A van that's your home. A dog in the passenger seat. Watch a Starship launch from a beach in South Texas.</p>
     <div class="hero-tags">
@@ -1449,38 +1449,15 @@ audEls.forEach(el => {
 function audFirstPlay() {
   if (audUnlocked) return;
   audUnlocked = true;
-  let idx = audIdx >= 0 ? audIdx : 0;
-  if (!SONGS[idx]) idx = SONGS.findIndex(s => s);
-  audIdx = -1;
-  audPlay(idx);
+  // Don't auto-play — let the scroll handler trigger the right song
+  // when the user actually reaches a stop
 }
 
-// ── Autoplay: try immediately, fall back to first pointerdown ─────────────
+// ── Autoplay: just unlock on first pointerdown; scroll handler plays ──────
 function tryAutoplay() {
-  const idx  = audIdx >= 0 ? audIdx : 0;
-  const song = SONGS[idx];
-  if (!song?.url) return;
-  const el      = audEls[audCur];
-  const chorSec = STOP_DATA[idx]?.chorus_sec || 0;
-  el.src    = song.url;
-  el.volume = 0;
-  if (chorSec > 0) {
-    el.addEventListener('loadedmetadata', function sk() {
-      el.currentTime = chorSec;
-      el.removeEventListener('loadedmetadata', sk);
-    });
-  }
-  el.play().then(() => {
+  document.addEventListener('pointerdown', function unlockOnce() {
     audUnlocked = true;
-    audIdx = idx;
-    ytUpdateWidget(idx);
-    document.getElementById('np-btn').textContent = '⏸';
-    fadeEl(el, 0, AUD_VOL, 1200);
-  }).catch(() => {
-    document.addEventListener('pointerdown', function unlockOnce() {
-      audFirstPlay();
-    }, { once: true });
-  });
+  }, { once: true });
 }
 
 function ytUpdateWidget(idx) {
@@ -1750,8 +1727,10 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('np-btn')?.addEventListener('click', () => {
     const btn = document.getElementById('np-btn');
     if (!audUnlocked) {
-      // First click: audio.play() is called within a click handler = always works
-      audFirstPlay();
+      audUnlocked = true;
+      const playIdx = currentStopIdx >= 0 ? currentStopIdx : 0;
+      audIdx = -1;
+      audPlay(playIdx);
       btn.textContent = '⏸';
       return;
     }
