@@ -32,15 +32,15 @@ a{color:var(--rust);text-decoration:none}
 /* ── HERO ─────────────────────────────── */
 .hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1800&q=90&fit=crop') center/cover no-repeat}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,9,6,.97) 0%,rgba(12,9,6,.55) 45%,rgba(12,9,6,.15) 75%,transparent 100%)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,9,6,.98) 0%,rgba(12,9,6,.72) 40%,rgba(12,9,6,.35) 65%,rgba(12,9,6,.1) 85%,transparent 100%)}
 .hero-content{position:relative;padding:0 64px 80px;max-width:900px}
-.hero-eyebrow{font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:rgba(212,201,188,.72);margin-bottom:20px}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgba(212,201,188,.92);margin-bottom:20px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
 .hero h1{font-size:clamp(56px,9vw,108px);line-height:.93;letter-spacing:-.03em;color:var(--white);margin-bottom:28px}
 .hero h1 em{font-style:italic;color:var(--gold)}
 .hero-made-with{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,201,188,.38);margin-top:-18px;margin-bottom:32px}.hero-made-with a{color:rgba(212,201,188,.38);text-decoration:none;border-bottom:1px solid rgba(212,201,188,.18)}.hero-made-with a:hover{color:rgba(212,201,188,.65)}
-.hero-desc{font-size:16px;max-width:520px;opacity:.82;line-height:1.7;margin-bottom:40px}
+.hero-desc{font-size:16px;max-width:520px;opacity:.95;line-height:1.7;margin-bottom:40px;text-shadow:0 1px 10px rgba(0,0,0,.7)}
 .hero-tags{display:flex;gap:10px;flex-wrap:wrap}
-.hero-tag{font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:7px 16px;border:1px solid rgba(212,201,188,.3);border-radius:100px;color:rgba(212,201,188,.7)}
+.hero-tag{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:7px 16px;border:1px solid rgba(212,201,188,.55);border-radius:100px;color:rgba(212,201,188,.92);background:rgba(12,9,6,.35);backdrop-filter:blur(4px);text-shadow:0 1px 4px rgba(0,0,0,.6)}
 
 /* ── IDEA ─────────────────────────────── */
 .idea-grid{display:grid;grid-template-columns:1fr 1fr;min-height:70vh}
@@ -246,7 +246,7 @@ img{background:var(--bg3)}
   <div class="hero-content">
     <div class="hero-eyebrow">New York City → California &nbsp;·&nbsp; 42 Days &nbsp;·&nbsp; ~7,400 km</div>
     <h1>Best Road Trip<br><em>by Assa</em></h1>
-    <p class="hero-made-with">made with <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer">Claude Code</a></p>
+    <p class="hero-made-with">made with <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer">Claude Code</a> &nbsp;·&nbsp; soundtrack included</p>
     <p class="hero-desc">A road trip with no flights. A van that's your home. A dog in the passenger seat. Watch a Starship launch from a beach in South Texas.</p>
     <div class="hero-tags">
       <span class="hero-tag">Graceland</span>
@@ -1240,7 +1240,7 @@ const STOP_DATA = [
   { day:'Days 21–22', name:'Houston, Texas',                 coords:[-95.370, 29.760], zoom:11, pitch:0,  bearing:0,   yt_id:null,          chorus_sec:0  },
   { day:'Days 23–25', name:'SpaceX Starbase, South Texas',   coords:[-97.155, 25.997], zoom:11, pitch:0,  bearing:0,   yt_id:'iYYRH4apXDo', chorus_sec:65 },
   { day:'Days 26–29', name:'Big Bend National Park',         coords:[-103.178,29.250], zoom:9,  pitch:50, bearing:0,   yt_id:'bX94bmYL9Ks', chorus_sec:52 },
-  { day:'Days 30–33', name:'Raton Pass & Colorado Rockies',  coords:[-105.521,40.343], zoom:9,  pitch:55, bearing:-12, yt_id:'TaEGmp9Qgxg', chorus_sec:45 },
+  { day:'Days 30–33', name:'Raton Pass & Colorado Rockies',  coords:[-105.521,40.343], zoom:9,  pitch:55, bearing:-12, yt_id:'TaEGmp9Qgxg', chorus_sec:69 },
   { day:'Days 34–39', name:'Monument Valley & Grand Canyon', coords:[-111.000,36.500], zoom:8,  pitch:40, bearing:8,   yt_id:'mNj6spCtUE0', chorus_sec:20 },
   { day:'Days 40–42', name:'Las Vegas & California',         coords:[-115.140,36.170], zoom:10, pitch:0,  bearing:0,   yt_id:'9MO1KyNUOIs', chorus_sec:22 },
 ];
