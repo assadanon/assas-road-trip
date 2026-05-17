@@ -1253,7 +1253,10 @@ function loadImg(el, urls) {
     el.src = urls[i++];
   }
   el.onerror = next;
-  el.onload = () => { el.style.opacity = '1'; };
+  el.onload = () => {
+    if (!el.naturalWidth) { next(); return; } // server returned 200 with non-image (e.g. HTML)
+    el.style.opacity = '1';
+  };
   el.style.opacity = '0'; el.style.transition = 'opacity .4s ease';
   next();
 }
@@ -1739,20 +1742,23 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Vehicle photos
   loadImg(document.getElementById('air-ext'), [
-    'https://www.airstream.com/wp-content/uploads/2025/06/1920x1080-24GLCurb-Side-Tenorite.png',
+    'https://upload.wikimedia.org/wikipedia/commons/8/88/Airstream_Interstate_Grand_Tour_EXT_%282019%29.jpg',
     'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1000&q=88&fit=crop',
+    'https://images.unsplash.com/photo-1527684651001-731c474bbb5a?w=1000&q=88&fit=crop',
   ]);
   loadImg(document.getElementById('air-int'), [
-    'https://www.airstream.com/wp-content/uploads/2025/06/MY26-24GL-interior-CC-captain-chairs-CC.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/3/30/Airstream_Interstate_Grand_Tour_INT_%282019%29.jpg',
     'https://images.unsplash.com/photo-1585974738771-84483dd9f89f?w=1000&q=85&fit=crop',
+    'https://images.unsplash.com/photo-1601942394238-7e3571b9c5b9?w=1000&q=85&fit=crop',
   ]);
   loadImg(document.getElementById('win-ext'), [
     'https://upload.wikimedia.org/wikipedia/commons/4/44/Winnebago_Travato_%2852877555311%29.jpg',
     'https://images.unsplash.com/photo-1527684651001-731c474bbb5a?w=1000&q=88&fit=crop',
   ]);
   loadImg(document.getElementById('win-int'), [
-    'https://upload.wikimedia.org/wikipedia/commons/9/9d/2020_Winnebago_Travato_%28RAM_ProMaster%29.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/6/67/Winnebago_Travato_59GL_interior.jpg',
     'https://images.unsplash.com/photo-1601942394238-7e3571b9c5b9?w=1000&q=85&fit=crop',
+    'https://images.unsplash.com/photo-1585974738771-84483dd9f89f?w=1000&q=85&fit=crop',
   ]);
 
   // No prefetch needed — Archive.org URLs are static, loaded directly by <audio>
