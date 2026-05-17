@@ -1295,6 +1295,7 @@ const ROUTE_COORDS = [
 let map, mapReady = false, currentStopIdx = -1;
 let map2, map2Ready = false;
 let travelerRouteIdx = 0, travelerAnimFrame = null;
+let travelerCurrentCoord = ROUTE_COORDS[0].slice();
 const markerEls = [];
 const dayEl  = document.getElementById('map-day');
 const nameEl = document.getElementById('map-name');
@@ -1449,15 +1450,13 @@ audEls.forEach(el => {
 function audFirstPlay() {
   if (audUnlocked) return;
   audUnlocked = true;
-  // Don't auto-play — let the scroll handler trigger the right song
-  // when the user actually reaches a stop
+  // Unlock both audio elements in this gesture context so scroll-triggered
+  // play() calls work later without requiring another gesture
+  audEls.forEach(el => { el.volume = 0; el.play().then(() => el.pause()).catch(() => {}); });
 }
 
-// ── Autoplay: just unlock on first pointerdown; scroll handler plays ──────
 function tryAutoplay() {
-  document.addEventListener('pointerdown', function unlockOnce() {
-    audUnlocked = true;
-  }, { once: true });
+  // Nothing — audio unlocks via Begin Journey button or ▶ click
 }
 
 function ytUpdateWidget(idx) {
@@ -1586,6 +1585,7 @@ function initMap() {
 }
 
 function setTravelerCoord(coord) {
+  travelerCurrentCoord = coord;
   if (!mapReady) return;
   map.getSource('traveler').setData({ type:'Feature', geometry:{ type:'Point', coordinates: coord } });
 }
@@ -1602,18 +1602,23 @@ function flyToStop(idx) {
 
   if (travelerAnimFrame) { cancelAnimationFrame(travelerAnimFrame); travelerAnimFrame = null; }
 
-  const fromIdx = travelerRouteIdx;
-  const toIdx   = s.routeIdx;
+  const fromRouteIdx = travelerRouteIdx;
+  const toIdx = s.routeIdx;
+  travelerRouteIdx = toIdx; // claim destination immediately so rapid calls chain correctly
 
-  if (fromIdx === toIdx) {
+  if (fromRouteIdx === toIdx) {
+    setTravelerCoord(s.coords);
     map.flyTo({ center: s.coords, zoom: s.zoom, pitch: s.pitch || 0, bearing: s.bearing || 0, duration: 1200, essential: true });
     return;
   }
 
-  // Collect route points along the path
-  const dir = toIdx > fromIdx ? 1 : -1;
-  const pts = [];
-  for (let i = fromIdx; dir > 0 ? i <= toIdx : i >= toIdx; i += dir) pts.push(ROUTE_COORDS[i]);
+  // Always start from the current *visual* position of the dot (avoids jump on cancel)
+  const dir = toIdx > fromRouteIdx ? 1 : -1;
+  const pts = [travelerCurrentCoord];
+  for (let i = fromRouteIdx + dir; dir > 0 ? i <= toIdx : i >= toIdx; i += dir) {
+    pts.push(ROUTE_COORDS[i]);
+  }
+  if (pts.length < 2) pts.push(ROUTE_COORDS[toIdx]);
 
   // Segment lengths for uniform-speed interpolation
   let totalLen = 0;
@@ -1655,7 +1660,6 @@ function flyToStop(idx) {
     if (raw < 1) {
       travelerAnimFrame = requestAnimationFrame(tick);
     } else {
-      travelerRouteIdx = toIdx;
       setTravelerCoord(s.coords);
       travelerAnimFrame = null;
       setTimeout(() => {
@@ -1727,11 +1731,7 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('np-btn')?.addEventListener('click', () => {
     const btn = document.getElementById('np-btn');
     if (!audUnlocked) {
-      audUnlocked = true;
-      const playIdx = currentStopIdx >= 0 ? currentStopIdx : 0;
-      audIdx = -1;
-      audPlay(playIdx);
-      btn.textContent = '⏸';
+      audFirstPlay(); // unlock silently — scroll will start the right song
       return;
     }
     if (!audPaused) {
