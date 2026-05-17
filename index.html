@@ -1637,7 +1637,7 @@ function toggleMapOverview() {
   mapOverviewMode = !mapOverviewMode;
   const btn = document.getElementById('map-overview-btn');
   btn.classList.toggle('active', mapOverviewMode);
-  document.getElementById('map-overview-label').textContent = mapOverviewMode ? 'Current Stop' : 'Full Route';
+  document.getElementById('map-overview-label').textContent = mapOverviewMode ? 'Switch to Stop View' : 'Full Route';
   if (mapOverviewMode) {
     map.fitBounds([[-120, 28], [-70, 44]], { padding:{top:60,bottom:80,left:60,right:60}, duration:1400, essential:true });
   } else if (currentStopIdx >= 0) {
@@ -1672,7 +1672,7 @@ function flyToStop(idx) {
   } else if (idx > 0 && !mapOverviewMode) {
     mapOverviewMode = true;
     document.getElementById('map-overview-btn').classList.add('active');
-    document.getElementById('map-overview-label').textContent = 'Current Stop';
+    document.getElementById('map-overview-label').textContent = 'Switch to Stop View';
     map.fitBounds([[-120,28],[-70,44]], { padding:{top:60,bottom:80,left:60,right:60}, duration:500, essential:true });
   }
 
